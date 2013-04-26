@@ -1,8 +1,6 @@
 namespace Minesweeper
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     public class Board
     {
@@ -30,7 +28,7 @@ namespace Minesweeper
                 {
                     this.fields[i][j] = new Field();
                 }
-            }
+           } 
 
             this.SetMines();
         }
@@ -50,16 +48,17 @@ namespace Minesweeper
                 Console.Write(i + " ");
             }
 
-            Console.WriteLine();
+            Console.Write("\n   _");
+            Console.WriteLine(new string('_', this.columns * 2));
+
+            PrintBoardRows();
 
             Console.Write("   _");
-            for (int i = 0; i < this.columns; i++)
-            {
-                Console.Write("__");
-            }
+            Console.WriteLine(new string('_', this.columns * 2));
+        }
 
-            Console.WriteLine();
-
+        private void PrintBoardRows()
+        {
             for (int i = 0; i < this.rows; i++)
             {
                 Console.Write(i);
@@ -80,14 +79,6 @@ namespace Minesweeper
 
                 Console.WriteLine("|");
             }
-
-            Console.Write("   _");
-            for (int i = 0; i < this.columns; i++)
-            {
-                Console.Write("__");
-            }
-
-            Console.WriteLine();
         }
 
         public Status OpenField(int row, int column)
