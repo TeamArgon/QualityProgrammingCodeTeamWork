@@ -1,12 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-//vsichko ba4ka, ne butaj!
+// vsichko ba4ka, ne butaj!
 
 namespace Minesweeper
 {
-    class Game
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    public class Game
     {
         private const int maxRows = 5;
         private const int maxColumns = 10;
@@ -16,16 +16,22 @@ namespace Minesweeper
         private static Board board;
         private static List<Player> topPlayers;
 
+        public static void Main(string[] args)
+        {
+            Menu();
+        }
+
         private static void InitializeGameBoard()
         {
             board = new Board(maxRows, maxColumns, maxMines);
-
         }
+
         private static void InitializeTopPlayers()
         {
             topPlayers = new List<Player>();
             topPlayers.Capacity = maxTopPlayers;
         }
+
         private static bool CheckHighScores(int score)
         {
             if (topPlayers.Capacity > topPlayers.Count)
@@ -38,10 +44,9 @@ namespace Minesweeper
                 if (currentPlayer.Score < score)
                 {
                     return true;
-
-
                 }
             }
+
             return false;
         }
 
@@ -58,8 +63,6 @@ namespace Minesweeper
                 topPlayers.Add(player);
                 topPlayers.Sort();
             }
-
-
         }
 
         private static void top()
@@ -80,8 +83,6 @@ namespace Minesweeper
 
             while (str != "exit")
             {
-
-
                 if (str == "restart")
                 {
                     InitializeGameBoard();
@@ -102,8 +103,6 @@ namespace Minesweeper
                 }
                 else if (str == "coordinates")
                 {
-
-
                     try
                     {
                         Board.Status status = board.OpenField(choosenRow, chosenColumn);
@@ -123,11 +122,10 @@ namespace Minesweeper
                                 topadd(ref player);
                                 top();
                             }
+
                             str = "restart";
                             continue;
                         }
-
-
                         else if (status == Board.Status.AlreadyOpened)
                         {
                             Console.WriteLine("Illegal move!");
@@ -143,16 +141,16 @@ namespace Minesweeper
                                 string name = Console.ReadLine();
                                 Player player = new Player(name, score);
                                 topadd(ref player);
+
                                 // pokazvame klasiraneto
-								top();
+                                top();
                             }
+
                             str = "restart";
                             continue;
                         }
                         else
                         {
-
-
                             board.PrintGameBoard();
                         }
                     }
@@ -172,8 +170,7 @@ namespace Minesweeper
                 }
                 catch
                 {
-
-					// niama smisal tuka
+                    // niama smisal tuka
                     continue;
                 }
 
@@ -188,11 +185,6 @@ namespace Minesweeper
                     continue;
                 }
             }
-        }
-
-        static void Main(string[] args)
-        {
-            Menu();
         }
     }
 }
