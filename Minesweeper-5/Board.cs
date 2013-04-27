@@ -10,7 +10,7 @@ namespace Minesweeper
     using System.Text;
     
     /// <summary>
-    /// Represent the game board for the minesweeper game
+    /// Represents a game board for the minesweeper game
     /// </summary>
     public class Board
     {

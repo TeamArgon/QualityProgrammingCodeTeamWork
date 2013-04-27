@@ -9,7 +9,7 @@ namespace Minesweeper
     using System;
     
     /// <summary>
-    /// Represent one field of the game board
+    /// Represents one field of the game board
     /// </summary>
     public class Field
     {
