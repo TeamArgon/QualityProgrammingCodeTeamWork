@@ -203,11 +203,11 @@ namespace Minesweeper
         public int CountOpenedFields()
         {
             int count = 0;
-            for (int i = 0; i < this.fields.Length; i++)
+            for (int row = 0; row < this.fields.Length; row++)
             {
-                for (int j = 0; j < this.fields[i].Length; j++)
+                for (int column = 0; column < this.fields[row].Length; column++)
                 {
-                    if (this.fields[i][j].Status == Field.FieldStatus.Opened)
+                    if (this.fields[row][column].Status == Field.FieldStatus.Opened)
                     {
                         count++;
                     }
@@ -288,9 +288,9 @@ namespace Minesweeper
         private void PrintColumnIndexes()
         {
             Console.Write("    ");
-            for (int i = 0; i < this.columns; i++)
+            for (int column = 0; column < this.columns; column++)
             {
-                Console.Write(i + " ");
+                Console.Write(column + " ");
             }
 
             Console.WriteLine();
@@ -301,13 +301,13 @@ namespace Minesweeper
         /// </summary>
         private void SetMines()
         {
-            for (int i = 0; i < this.minesCount; i++)
+            for (int mine = 0; mine < this.minesCount; mine++)
             {
                 int row = this.GenerateRandomNumber(0, this.rows);
                 int column = this.GenerateRandomNumber(0, this.columns);
                 if (this.fields[row][column].Status == Field.FieldStatus.IsAMine)
                 {
-                    i--;
+                    mine--;
                 }
                 else
                 {
