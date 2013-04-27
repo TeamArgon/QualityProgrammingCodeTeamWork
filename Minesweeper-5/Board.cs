@@ -32,7 +32,7 @@ namespace Minesweeper
         /// <summary>
         /// The body of the board
         /// </summary>
-        private Field[][] fields;
+        private Field[,] fields;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Board" /> class.
@@ -45,17 +45,13 @@ namespace Minesweeper
             this.rows = rows;
             this.columns = columns;
             this.minesCount = minesCount;
-            this.fields = new Field[rows][];
-            for (int i = 0; i < this.fields.Length; i++)
-            {
-                this.fields[i] = new Field[columns];
-            }
+            this.fields = new Field[rows,columns];
 
-            for (int i = 0; i < this.fields.Length; i++)
+            for (int row = 0; row < this.rows; row++)
             {
-                for (int j = 0; j < this.fields[i].Length; j++)
+                for (int column = 0; column < this.columns; column++)
                 {
-                    this.fields[i][j] = new Field();
+                    this.fields[row,column] = new Field();
                 }
            } 
 
@@ -104,10 +100,10 @@ namespace Minesweeper
                 Console.Write(" | ");
                 for (int column = 0; column < this.columns; column++)
                 {
-                    Field currentField = this.fields[row][column];
+                    Field currentField = this.fields[row, column];
                     if (currentField.Status == Field.FieldStatus.Opened)
                     {
-                        Console.Write(this.fields[row][column].Value);
+                        Console.Write(this.fields[row, column].Value);
                         Console.Write(" ");
                     }
                     else
@@ -138,10 +134,10 @@ namespace Minesweeper
                 Console.Write(" | ");
                 for (int column = 0; column < this.columns; column++)
                 {
-                    Field currentField = this.fields[row][column];
+                    Field currentField = this.fields[row, column];
                     if (currentField.Status == Field.FieldStatus.Opened)
                     {
-                        Console.Write(this.fields[row][column].Value + " ");
+                        Console.Write(this.fields[row, column].Value + " ");
                     }
                     else if (currentField.Status == Field.FieldStatus.IsAMine)
                     {
@@ -150,7 +146,7 @@ namespace Minesweeper
                     else
                     {
                         currentField.Value = this.ScanSurroundingFields(row, column);
-                        Console.Write(this.fields[row][column].Value + " ");
+                        Console.Write(this.fields[row, column].Value + " ");
                     }
                 }
 
@@ -168,7 +164,7 @@ namespace Minesweeper
         /// <returns>Status after field opening</returns>
         public Status OpenField(int row, int column)
         {
-            Field field = this.fields[row][column];
+            Field field = this.fields[row, column];
             Status status;
 
             if (field.Status == Field.FieldStatus.IsAMine)
@@ -203,11 +199,11 @@ namespace Minesweeper
         public int CountOpenedFields()
         {
             int count = 0;
-            for (int row = 0; row < this.fields.Length; row++)
+            for (int row = 0; row < this.rows; row++)
             {
-                for (int column = 0; column < this.fields[row].Length; column++)
+                for (int column = 0; column < this.columns; column++)
                 {
-                    if (this.fields[row][column].Status == Field.FieldStatus.Opened)
+                    if (this.fields[row, column].Status == Field.FieldStatus.Opened)
                     {
                         count++;
                     }
@@ -229,52 +225,52 @@ namespace Minesweeper
             int mines = 0;
             if ((row > 0) &&
                 (column > 0) &&
-                (this.fields[row - 1][column - 1].Status == Field.FieldStatus.IsAMine))
+                (this.fields[row - 1, column - 1].Status == Field.FieldStatus.IsAMine))
             {
                 mines++;
             }
 
             if ((row > 0) &&
-                (this.fields[row - 1][column].Status == Field.FieldStatus.IsAMine))
+                (this.fields[row - 1, column].Status == Field.FieldStatus.IsAMine))
             {
                 mines++;
             }
 
             if ((row > 0) &&
                 (column < this.columns - 1) &&
-                (this.fields[row - 1][column + 1].Status == Field.FieldStatus.IsAMine))
+                (this.fields[row - 1, column + 1].Status == Field.FieldStatus.IsAMine))
             {
                 mines++;
             }
 
             if ((column > 0) &&
-                (this.fields[row][column - 1].Status == Field.FieldStatus.IsAMine))
+                (this.fields[row, column - 1].Status == Field.FieldStatus.IsAMine))
             {
                 mines++;
             }
 
             if ((column < this.columns - 1) &&
-                (this.fields[row][column + 1].Status == Field.FieldStatus.IsAMine))
+                (this.fields[row, column + 1].Status == Field.FieldStatus.IsAMine))
             {
                 mines++;
             }
 
             if ((row < this.rows - 1) &&
                 (column > 0) &&
-                (this.fields[row + 1][column - 1].Status == Field.FieldStatus.IsAMine))
+                (this.fields[row + 1, column - 1].Status == Field.FieldStatus.IsAMine))
             {
                 mines++;
             }
 
             if ((row < this.rows - 1) &&
-                (this.fields[row + 1][column].Status == Field.FieldStatus.IsAMine))
+                (this.fields[row + 1, column].Status == Field.FieldStatus.IsAMine))
             {
                 mines++;
             }
 
             if ((row < this.rows - 1) &&
                 (column < this.columns - 1) &&
-                (this.fields[row + 1][column + 1].Status == Field.FieldStatus.IsAMine))
+                (this.fields[row + 1, column + 1].Status == Field.FieldStatus.IsAMine))
             {
                 mines++;
             }
@@ -305,13 +301,13 @@ namespace Minesweeper
             {
                 int row = this.GenerateRandomNumber(0, this.rows);
                 int column = this.GenerateRandomNumber(0, this.columns);
-                if (this.fields[row][column].Status == Field.FieldStatus.IsAMine)
+                if (this.fields[row, column].Status == Field.FieldStatus.IsAMine)
                 {
                     mine--;
                 }
                 else
                 {
-                    this.fields[row][column].Status = Field.FieldStatus.IsAMine;
+                    this.fields[row, column].Status = Field.FieldStatus.IsAMine;
                 }
             }
         }
