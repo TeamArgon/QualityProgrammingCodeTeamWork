@@ -1,18 +1,47 @@
+//-----------------------------------------------------------------------
+// <copyright file="Board.cs" company="TelerikAcademy">
+// All rights reserved © Telerik Academy 2012-2013
+// </copyright>
+//-----------------------------------------------------------------------
+
 namespace Minesweeper
 {
     using System;
-
+    using System.Text;
+    
+    /// <summary>
+    /// Represent the game board for the minesweeper game
+    /// </summary>
     public class Board
     {
+        /// <summary>
+        /// Number of rows on the boards
+        /// </summary>
         private int rows;
-        private int columns;
-        private int minesCount;
-        private Field[][] fields;
-        private Random random;
 
+        /// <summary>
+        /// Number of columns on the board
+        /// </summary>
+        private int columns;
+
+        /// <summary>
+        /// Number of mines placed on the board
+        /// </summary>
+        private int minesCount;
+
+        /// <summary>
+        /// The body of the board
+        /// </summary>
+        private Field[][] fields;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Board" /> class.
+        /// </summary>
+        /// <param name="rows">Number of rows on the board</param>
+        /// <param name="columns">Number of columns on the board</param>
+        /// <param name="minesCount">Number of mines on the board</param>
         public Board(int rows, int columns, int minesCount)
         {
-            this.random = new Random();
             this.rows = rows;
             this.columns = columns;
             this.minesCount = minesCount;
@@ -33,42 +62,52 @@ namespace Minesweeper
             this.SetMines();
         }
 
-        public enum Status { 
+        /// <summary>
+        /// Board status after field opening
+        /// </summary>
+        public enum Status 
+        { 
+            /// <summary>
+            /// Mined filed has been opened
+            /// </summary>
             SteppedOnAMine,
-            AlreadyOpened,
-            SuccessfullyOpened,
+
+            /// <summary>
+            /// The opened field had been already opened
+            /// </summary>
+            FieldAlreadyOpened,
+
+            /// <summary>
+            /// The field has been successfully opened
+            /// </summary>
+            FieldSuccessfullyOpened,
+
+            /// <summary>
+            /// The last non-mined field has been successfully opened
+            /// </summary>
             AllFieldsAreOpened
         }
 
-        public void PrintGameBoard()
+        /// <summary>
+        /// Prints the game board,  marking the unopened fields with '?'
+        /// </summary>
+        public void PrintGameBoardCurrentState()
         {
-            Console.Write("    ");
-            for (int i = 0; i < this.columns; i++)
+            this.PrintColumnIndexes();
+
+            string horizontalLine = new string('_', (this.columns * 2) + 1);
+            Console.WriteLine("   {0}", horizontalLine);
+
+            for (int row = 0; row < this.rows; row++)
             {
-                Console.Write(i + " ");
-            }
-
-            Console.Write("\n   _");
-            Console.WriteLine(new string('_', this.columns * 2));
-
-            PrintBoardRows();
-
-            Console.Write("   _");
-            Console.WriteLine(new string('_', this.columns * 2));
-        }
-
-        private void PrintBoardRows()
-        {
-            for (int i = 0; i < this.rows; i++)
-            {
-                Console.Write(i);
+                Console.Write(row);
                 Console.Write(" | ");
-                for (int j = 0; j < this.columns; j++)
+                for (int column = 0; column < this.columns; column++)
                 {
-                    Field currentField = this.fields[i][j];
+                    Field currentField = this.fields[row][column];
                     if (currentField.Status == Field.FieldStatus.Opened)
                     {
-                        Console.Write(this.fields[i][j].Value);
+                        Console.Write(this.fields[row][column].Value);
                         Console.Write(" ");
                     }
                     else
@@ -79,8 +118,54 @@ namespace Minesweeper
 
                 Console.WriteLine("|");
             }
+
+            Console.WriteLine("   {0}", horizontalLine);
         }
 
+        /// <summary>
+        /// Prints the game board, revealing all the fields. It is used when the game is over.
+        /// </summary>
+        public void PrintGameBoardAllFieldsRevealed()
+        {
+            this.PrintColumnIndexes();
+
+            string horizontalLine = new string('_', (this.columns * 2) + 1);
+            Console.WriteLine("   {0}", horizontalLine);
+
+            for (int row = 0; row < this.rows; row++)
+            {
+                Console.Write(row);
+                Console.Write(" | ");
+                for (int column = 0; column < this.columns; column++)
+                {
+                    Field currentField = this.fields[row][column];
+                    if (currentField.Status == Field.FieldStatus.Opened)
+                    {
+                        Console.Write(this.fields[row][column].Value + " ");
+                    }
+                    else if (currentField.Status == Field.FieldStatus.IsAMine)
+                    {
+                        Console.Write("* ");
+                    }
+                    else
+                    {
+                        currentField.Value = this.ScanSurroundingFields(row, column);
+                        Console.Write(this.fields[row][column].Value + " ");
+                    }
+                }
+
+                Console.WriteLine("|");
+            }
+
+            Console.WriteLine("   {0}", horizontalLine);
+        }
+
+        /// <summary>
+        /// Opens a field on the board
+        /// </summary>
+        /// <param name="row">Row index of the field</param>
+        /// <param name="column">Column index of the field</param>
+        /// <returns>Status after field opening</returns>
         public Status OpenField(int row, int column)
         {
             Field field = this.fields[row][column];
@@ -92,7 +177,7 @@ namespace Minesweeper
             }
             else if (field.Status == Field.FieldStatus.Opened)
             {
-                status = Status.AlreadyOpened;
+                status = Status.FieldAlreadyOpened;
             }
             else
             {
@@ -104,65 +189,17 @@ namespace Minesweeper
                 }
                 else
                 {
-                    status = Status.SuccessfullyOpened;
+                    status = Status.FieldSuccessfullyOpened;
                 }
             }
 
             return status;
         }
 
-        public void PrintAllFields()
-        {
-            Console.Write("    ");
-            for (int i = 0; i < this.columns; i++)
-            {
-                Console.Write(i + " ");
-            }
-
-            Console.WriteLine();
-
-            Console.Write("   _");
-            for (int i = 0; i < this.columns; i++)
-            {
-                Console.Write("__");
-            }
-
-            Console.WriteLine();
-
-            for (int i = 0; i < this.rows; i++)
-            {
-                Console.Write(i);
-                Console.Write(" | ");
-                for (int j = 0; j < this.columns; j++)
-                {
-                    Field currentField = this.fields[i][j];
-                    if (currentField.Status == Field.FieldStatus.Opened)
-                    {
-                        Console.Write(this.fields[i][j].Value + " ");
-                    }
-                    else if (currentField.Status == Field.FieldStatus.IsAMine)
-                    {
-                        Console.Write("* ");
-                    }
-                    else
-                    {
-                        currentField.Value = this.ScanSurroundingFields(i, j);
-                        Console.Write(this.fields[i][j].Value + " ");
-                    }
-                }
-
-                Console.WriteLine("|");
-            }
-
-            Console.Write("   _");
-            for (int i = 0; i < this.columns; i++)
-            {
-                Console.Write("__");
-            }
-
-            Console.WriteLine();
-        }
-
+        /// <summary>
+        /// Counts how many fields are opened
+        /// </summary>
+        /// <returns>Number of opened fields</returns>
         public int CountOpenedFields()
         {
             int count = 0;
@@ -180,12 +217,13 @@ namespace Minesweeper
             return count;
         }
 
-        private int GenerateRandomNumber(int minValue, int maxValue)
-        {
-            int number = this.random.Next(minValue, maxValue);
-            return number;
-        }
-
+        /// <summary>
+        /// Scans the surrounding fields of certain field in order to find 
+        /// the number of the mines placed on the surrounding fields.
+        /// </summary>
+        /// <param name="row">Row index of the field</param>
+        /// <param name="column">Column index of the field</param>
+        /// <returns>Number of mines placed on the surrounding fields</returns>
         private int ScanSurroundingFields(int row, int column)
         {
             int mines = 0;
@@ -244,6 +282,23 @@ namespace Minesweeper
             return mines;
         }
 
+        /// <summary>
+        /// Prints the header of the game board containing the column's indexes and a horizontal line
+        /// </summary>
+        private void PrintColumnIndexes()
+        {
+            Console.Write("    ");
+            for (int i = 0; i < this.columns; i++)
+            {
+                Console.Write(i + " ");
+            }
+
+            Console.WriteLine();
+        }
+
+        /// <summary>
+        /// Places certain number of mines in randomly chosen fields on the board
+        /// </summary>
         private void SetMines()
         {
             for (int i = 0; i < this.minesCount; i++)
@@ -261,19 +316,29 @@ namespace Minesweeper
             }
         }
 
+        /// <summary>
+        /// Generates random number in certain interval
+        /// </summary>
+        /// <param name="minValue">Lower limit of the interval</param>
+        /// <param name="maxValue">Upper limit of the interval</param>
+        /// <returns>Generated random number</returns>
+        private int GenerateRandomNumber(int minValue, int maxValue)
+        {
+            Random random = new Random();
+            int number = random.Next(minValue, maxValue);
+            return number;
+        }
+
+        /// <summary>
+        /// Verifies if the game is successfully finished, checking if all the fields without mines placed on them are opened.
+        /// </summary>
+        /// <returns>
+        /// True - if all the mined fields are opened
+        /// False - if there are some mined fields unopened 
+        /// </returns>
         private bool CheckIfWin()
         {
-            int openedFields = 0;
-            for (int i = 0; i < this.fields.Length; i++)
-            {
-                for (int j = 0; j < this.fields[i].Length; j++)
-                {
-                    if (this.fields[i][j].Status == Field.FieldStatus.Opened)
-                    {
-                        openedFields++;
-                    }
-                }
-            }
+            int openedFields = this.CountOpenedFields();
 
             if ((openedFields + this.minesCount) == (this.rows * this.columns))
             {
