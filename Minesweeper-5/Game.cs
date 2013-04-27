@@ -17,6 +17,10 @@ namespace Minesweeper
 
         public static void Main(string[] args)
         {
+            Player player1 = new Player("pesho", 10);
+            Player player2 = new Player("gosho", 9);
+
+            Console.WriteLine(player1.CompareTo(player2));
             Menu();
         }
 
@@ -89,7 +93,7 @@ namespace Minesweeper
                         "Try to reveal all cells without mines. " +
                         "Use 'top' to view the scoreboard, 'restart' to start a new game" +
                         "and 'exit' to quit the game.");
-                    board.PrintGameBoard();
+                    board.PrintGameBoardCurrentState();
                 }
                 else if (str == "exit")
                 {
@@ -107,7 +111,7 @@ namespace Minesweeper
                         Board.Status status = board.OpenField(choosenRow, chosenColumn);
                         if (status == Board.Status.SteppedOnAMine)
                         {
-                            board.PrintAllFields();
+                            board.PrintGameBoardAllFieldsRevealed();
                             int score = board.CountOpenedFields();
                             Console.WriteLine("Booooom! You were killed by a mine. You revealed " +
                                 score +
@@ -125,13 +129,13 @@ namespace Minesweeper
                             str = "restart";
                             continue;
                         }
-                        else if (status == Board.Status.AlreadyOpened)
+                        else if (status == Board.Status.FieldAlreadyOpened)
                         {
                             Console.WriteLine("Illegal move!");
                         }
                         else if (status == Board.Status.AllFieldsAreOpened)
                         {
-                            board.PrintAllFields();
+                            board.PrintGameBoardAllFieldsRevealed();
                             int score = board.CountOpenedFields();
                             Console.WriteLine("Congratulations! You win!!");
                             if (CheckHighScores(score))
@@ -150,7 +154,7 @@ namespace Minesweeper
                         }
                         else
                         {
-                            board.PrintGameBoard();
+                            board.PrintGameBoardCurrentState();
                         }
                     }
                     catch (Exception)
