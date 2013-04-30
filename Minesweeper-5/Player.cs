@@ -30,7 +30,17 @@ namespace Minesweeper
         /// <param name="score">Player's score</param>
         public Player(string name, int score)
         {
-            this.name = name;
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentNullException("The name of the player must not be null or empty !!!");
+            }
+
+            if (score < 0)
+            {
+                throw new ArgumentOutOfRangeException("Score must not be negative number !!!");
+            }
+
+            this.Name = name;
             this.score = score;
         }
 
@@ -39,7 +49,18 @@ namespace Minesweeper
         /// </summary>
         public string Name
         {
-            get { return this.name; }
+            get
+            { 
+                return this.name; 
+            }
+            private set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentNullException("The name of the player must not be null or empty !!!");
+                }
+                this.name = value;
+            }
         }
 
         /// <summary>
@@ -47,7 +68,18 @@ namespace Minesweeper
         /// </summary>
         public int Score
         {
-            get { return this.score; }
+            get
+            {
+                return this.score;
+            }
+            set
+            {
+                if (score < 0)
+                {
+                    throw new ArgumentOutOfRangeException("Score must not be negative number !!!");
+                }
+                this.score = value; 
+            }
         }
 
         /// <summary>
