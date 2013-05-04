@@ -31,26 +31,6 @@ namespace Minesweeper.GameElements
             this.status = FieldStatus.Closed;
         }
 
-        /// <summary>
-        /// Field status collection
-        /// </summary>
-        public enum FieldStatus
-        {
-            /// <summary>
-            /// The field is closed
-            /// </summary>
-            Closed,
-            
-            /// <summary>
-            /// The field is opened
-            /// </summary>
-            Opened,
-
-            /// <summary>
-            /// The field contains a mine
-            /// </summary>
-            IsAMine
-        }
 
         /// <summary>
         /// Gets or sets the sum of all mines positioned in the surrounding fields

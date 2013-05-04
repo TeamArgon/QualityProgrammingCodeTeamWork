@@ -61,6 +61,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameElements\Board.cs" />
+    <Compile Include="GameElements\BoardStatus.cs" />
+    <Compile Include="GameElements\FieldStatus.cs" />
     <Compile Include="InputMethods\ConsoleInputMethod.cs" />
     <Compile Include="MinesweeperGame.cs" />
     <Compile Include="Renderer\ConsoleRenderer.cs" />

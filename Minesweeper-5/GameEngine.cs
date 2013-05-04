@@ -68,8 +68,8 @@ namespace Minesweeper
                     case "coordinates":
                         try
                         {
-                            Board.Status status = this.board.OpenField(chosenRow, chosenColumn);
-                            if (status == Board.Status.SteppedOnAMine)
+                            BoardStatus boardStatus = this.board.OpenField(chosenRow, chosenColumn);
+                            if (boardStatus == BoardStatus.SteppedOnAMine)
                             {
                                 int score = this.board.CountOpenedFields();
                                 this.EndGame(string.Format(
@@ -79,11 +79,11 @@ namespace Minesweeper
                                 command = "restart";
                                 continue;
                             }
-                            else if (status == Board.Status.FieldAlreadyOpened)
+                            else if (boardStatus == BoardStatus.FieldAlreadyOpened)
                             {
                                 this.gameRenderer.DisplayMessage("That field has already been opened!");
                             }
-                            else if (status == Board.Status.AllFieldsAreOpened)
+                            else if (boardStatus == BoardStatus.AllFieldsAreOpened)
                             {
                                 this.EndGame("Congratulations! You win!!");
                                 command = "restart";

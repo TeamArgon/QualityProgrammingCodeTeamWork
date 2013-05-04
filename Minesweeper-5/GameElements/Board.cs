@@ -77,32 +77,6 @@ namespace Minesweeper.GameElements
         }
 
         /// <summary>
-        /// Board status after field opening
-        /// </summary>
-        public enum Status 
-        { 
-            /// <summary>
-            /// Mined filed has been opened
-            /// </summary>
-            SteppedOnAMine,
-
-            /// <summary>
-            /// The opened field had been already opened
-            /// </summary>
-            FieldAlreadyOpened,
-
-            /// <summary>
-            /// The field has been successfully opened
-            /// </summary>
-            FieldSuccessfullyOpened,
-
-            /// <summary>
-            /// The last non-mined field has been successfully opened
-            /// </summary>
-            AllFieldsAreOpened
-        }
-
-        /// <summary>
         /// Prints the game board,  marking the unopened fields with '?'
         /// </summary>
         /// <returns>Board as string</returns>
@@ -120,7 +94,7 @@ namespace Minesweeper.GameElements
                 for (int column = 0; column < this.columns; column++)
                 {
                     Field currentField = this.fields[row, column];
-                    if (currentField.Status == Field.FieldStatus.Opened)
+                    if (currentField.Status == FieldStatus.Opened)
                     {
                         board.Append(this.fields[row, column].Value).Append(" ");
                     }
@@ -156,11 +130,11 @@ namespace Minesweeper.GameElements
                 for (int column = 0; column < this.columns; column++)
                 {
                     Field currentField = this.fields[row, column];
-                    if (currentField.Status == Field.FieldStatus.Opened)
+                    if (currentField.Status == FieldStatus.Opened)
                     {
                         board.Append(this.fields[row, column].Value).Append(" ");
                     }
-                    else if (currentField.Status == Field.FieldStatus.IsAMine)
+                    else if (currentField.Status == FieldStatus.IsAMine)
                     {
                         board.Append("* ");
                     }
@@ -185,34 +159,34 @@ namespace Minesweeper.GameElements
         /// <param name="row">Row index of the field</param>
         /// <param name="column">Column index of the field</param>
         /// <returns>Status after field opening</returns>
-        public Status OpenField(int row, int column)
+        public BoardStatus OpenField(int row, int column)
         {
             Field field = this.fields[row, column];
-            Status status;
+            BoardStatus boardStatus;
 
-            if (field.Status == Field.FieldStatus.IsAMine)
+            if (field.Status == FieldStatus.IsAMine)
             {
-                status = Status.SteppedOnAMine;
+                boardStatus = BoardStatus.SteppedOnAMine;
             }
-            else if (field.Status == Field.FieldStatus.Opened)
+            else if (field.Status == FieldStatus.Opened)
             {
-                status = Status.FieldAlreadyOpened;
+                boardStatus = BoardStatus.FieldAlreadyOpened;
             }
             else
             {
                 field.Value = this.ScanSurroundingFields(row, column);
-                field.Status = Field.FieldStatus.Opened;
+                field.Status = FieldStatus.Opened;
                 if (this.CheckIfWin())
                 {
-                    status = Status.AllFieldsAreOpened;
+                    boardStatus = BoardStatus.AllFieldsAreOpened;
                 }
                 else
                 {
-                    status = Status.FieldSuccessfullyOpened;
+                    boardStatus = BoardStatus.FieldSuccessfullyOpened;
                 }
             }
 
-            return status;
+            return boardStatus;
         }
 
         /// <summary>
@@ -226,7 +200,7 @@ namespace Minesweeper.GameElements
             {
                 for (int column = 0; column < this.columns; column++)
                 {
-                    if (this.fields[row, column].Status == Field.FieldStatus.Opened)
+                    if (this.fields[row, column].Status == FieldStatus.Opened)
                     {
                         count++;
                     }
@@ -248,52 +222,52 @@ namespace Minesweeper.GameElements
             int mines = 0;
             if ((row > 0) &&
                 (column > 0) &&
-                (this.fields[row - 1, column - 1].Status == Field.FieldStatus.IsAMine))
+                (this.fields[row - 1, column - 1].Status == FieldStatus.IsAMine))
             {
                 mines++;
             }
 
             if ((row > 0) &&
-                (this.fields[row - 1, column].Status == Field.FieldStatus.IsAMine))
+                (this.fields[row - 1, column].Status == FieldStatus.IsAMine))
             {
                 mines++;
             }
 
             if ((row > 0) &&
                 (column < this.columns - 1) &&
-                (this.fields[row - 1, column + 1].Status == Field.FieldStatus.IsAMine))
+                (this.fields[row - 1, column + 1].Status == FieldStatus.IsAMine))
             {
                 mines++;
             }
 
             if ((column > 0) &&
-                (this.fields[row, column - 1].Status == Field.FieldStatus.IsAMine))
+                (this.fields[row, column - 1].Status == FieldStatus.IsAMine))
             {
                 mines++;
             }
 
             if ((column < this.columns - 1) &&
-                (this.fields[row, column + 1].Status == Field.FieldStatus.IsAMine))
+                (this.fields[row, column + 1].Status == FieldStatus.IsAMine))
             {
                 mines++;
             }
 
             if ((row < this.rows - 1) &&
                 (column > 0) &&
-                (this.fields[row + 1, column - 1].Status == Field.FieldStatus.IsAMine))
+                (this.fields[row + 1, column - 1].Status == FieldStatus.IsAMine))
             {
                 mines++;
             }
 
             if ((row < this.rows - 1) &&
-                (this.fields[row + 1, column].Status == Field.FieldStatus.IsAMine))
+                (this.fields[row + 1, column].Status == FieldStatus.IsAMine))
             {
                 mines++;
             }
 
             if ((row < this.rows - 1) &&
                 (column < this.columns - 1) &&
-                (this.fields[row + 1, column + 1].Status == Field.FieldStatus.IsAMine))
+                (this.fields[row + 1, column + 1].Status == FieldStatus.IsAMine))
             {
                 mines++;
             }
@@ -328,13 +302,13 @@ namespace Minesweeper.GameElements
             {
                 int row = this.GenerateRandomNumber(0, this.rows);
                 int column = this.GenerateRandomNumber(0, this.columns);
-                if (this.fields[row, column].Status == Field.FieldStatus.IsAMine)
+                if (this.fields[row, column].Status == FieldStatus.IsAMine)
                 {
                     mine--;
                 }
                 else
                 {
-                    this.fields[row, column].Status = Field.FieldStatus.IsAMine;
+                    this.fields[row, column].Status = FieldStatus.IsAMine;
                 }
             }
         }
