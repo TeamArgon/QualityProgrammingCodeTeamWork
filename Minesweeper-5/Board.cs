@@ -8,7 +8,7 @@ namespace Minesweeper
 {
     using System;
     using System.Text;
-
+    
     /// <summary>
     /// Represents a game board for the minesweeper game
     /// </summary>
@@ -42,6 +42,21 @@ namespace Minesweeper
         /// <param name="minesCount">Number of mines on the board</param>
         public Board(int rows, int columns, int minesCount)
         {
+            if (rows < 1)
+            {
+                throw new ArgumentOutOfRangeException("Rows must not be less then one !!!");
+            }
+
+            if (columns < 1)
+            {
+                throw new ArgumentOutOfRangeException("Columns must not be less then one !!!");
+            }
+
+            if (minesCount < 1)
+            {
+                throw new ArgumentOutOfRangeException("Must have at least one mine !!!");
+            }
+
             this.rows = rows;
             this.columns = columns;
             this.minesCount = minesCount;
@@ -326,6 +341,11 @@ namespace Minesweeper
         /// <returns>Generated random number</returns>
         private int GenerateRandomNumber(int minValue, int maxValue)
         {
+            if (minValue >= maxValue)
+            {
+                throw new ArgumentOutOfRangeException("Minimum value must not be more or equal ot the maximum value !!!");
+            }
+
             Random random = new Random();
             int number = random.Next(minValue, maxValue);
             return number;
