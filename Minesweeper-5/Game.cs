@@ -93,7 +93,7 @@ namespace Minesweeper
                         "Try to reveal all cells without mines. " +
                         "Use 'top' to view the scoreboard, 'restart' to start a new game" +
                         "and 'exit' to quit the game.");
-                    board.PrintGameBoardCurrentState();
+                    Console.WriteLine(board);
                 }
                 else if (str == "exit")
                 {
@@ -111,7 +111,7 @@ namespace Minesweeper
                         Board.Status status = board.OpenField(choosenRow, chosenColumn);
                         if (status == Board.Status.SteppedOnAMine)
                         {
-                            board.PrintGameBoardAllFieldsRevealed();
+                            Console.WriteLine(board.ToStringAllFieldsRevealed());
                             int score = board.CountOpenedFields();
                             Console.WriteLine("Booooom! You were killed by a mine. You revealed " +
                                 score +
@@ -135,7 +135,7 @@ namespace Minesweeper
                         }
                         else if (status == Board.Status.AllFieldsAreOpened)
                         {
-                            board.PrintGameBoardAllFieldsRevealed();
+                            Console.WriteLine(board.ToStringAllFieldsRevealed());
                             int score = board.CountOpenedFields();
                             Console.WriteLine("Congratulations! You win!!");
                             if (CheckHighScores(score))
@@ -154,7 +154,7 @@ namespace Minesweeper
                         }
                         else
                         {
-                            board.PrintGameBoardCurrentState();
+                            Console.WriteLine(board);
                         }
                     }
                     catch (Exception)

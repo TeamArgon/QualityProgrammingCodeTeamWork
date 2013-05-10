@@ -8,7 +8,7 @@ namespace Minesweeper
 {
     using System;
     using System.Text;
-    
+
     /// <summary>
     /// Represents a game board for the minesweeper game
     /// </summary>
@@ -17,22 +17,22 @@ namespace Minesweeper
         /// <summary>
         /// Number of rows on the boards
         /// </summary>
-        private int rows;
+        private readonly int rows;
 
         /// <summary>
         /// Number of columns on the board
         /// </summary>
-        private int columns;
+        private readonly int columns;
 
         /// <summary>
         /// Number of mines placed on the board
         /// </summary>
-        private int minesCount;
+        private readonly int minesCount;
 
         /// <summary>
         /// The body of the board
         /// </summary>
-        private Field[,] fields;
+        private readonly Field[,] fields;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Board" /> class.
@@ -87,73 +87,76 @@ namespace Minesweeper
         /// <summary>
         /// Prints the game board,  marking the unopened fields with '?'
         /// </summary>
-        public void PrintGameBoardCurrentState()
+        public override string ToString()
         {
-            this.PrintColumnIndexes();
+            StringBuilder board = new StringBuilder();
+            board.Append(ColumnIndexesToString());
 
             string horizontalLine = new string('_', (this.columns * 2) + 1);
-            Console.WriteLine("   {0}", horizontalLine);
+            board.Append("   ").Append(horizontalLine).Append("\n");
 
             for (int row = 0; row < this.rows; row++)
             {
-                Console.Write(row);
-                Console.Write(" | ");
+                board.Append(row).Append(" | ");
                 for (int column = 0; column < this.columns; column++)
                 {
                     Field currentField = this.fields[row, column];
                     if (currentField.Status == Field.FieldStatus.Opened)
                     {
-                        Console.Write(this.fields[row, column].Value);
-                        Console.Write(" ");
+                        board.Append(this.fields[row, column].Value).Append(" ");
                     }
                     else
                     {
-                        Console.Write("? ");
+                        board.Append("? ");
                     }
                 }
 
-                Console.WriteLine("|");
+                board.Append("|\n");
             }
 
-            Console.WriteLine("   {0}", horizontalLine);
+            board.Append("   ").Append(horizontalLine).Append("\n");
+
+            return board.ToString();
         }
 
         /// <summary>
         /// Prints the game board, revealing all the fields. It is used when the game is over.
         /// </summary>
-        public void PrintGameBoardAllFieldsRevealed()
+        public string ToStringAllFieldsRevealed()
         {
-            this.PrintColumnIndexes();
+            StringBuilder board = new StringBuilder();
+            board.Append(ColumnIndexesToString());
 
             string horizontalLine = new string('_', (this.columns * 2) + 1);
-            Console.WriteLine("   {0}", horizontalLine);
+            board.Append("   ").Append(horizontalLine).Append("\n");
 
             for (int row = 0; row < this.rows; row++)
             {
-                Console.Write(row);
-                Console.Write(" | ");
+                board.Append(row).Append(" | ");
                 for (int column = 0; column < this.columns; column++)
                 {
                     Field currentField = this.fields[row, column];
                     if (currentField.Status == Field.FieldStatus.Opened)
                     {
-                        Console.Write(this.fields[row, column].Value + " ");
+                        board.Append(this.fields[row, column].Value).Append(" ");
                     }
                     else if (currentField.Status == Field.FieldStatus.IsAMine)
                     {
-                        Console.Write("* ");
+                        board.Append("* ");
                     }
                     else
                     {
                         currentField.Value = this.ScanSurroundingFields(row, column);
-                        Console.Write(this.fields[row, column].Value + " ");
+                        board.Append(this.fields[row, column].Value).Append(" ");
                     }
                 }
 
-                Console.WriteLine("|");
+                board.Append("|\n");
             }
 
-            Console.WriteLine("   {0}", horizontalLine);
+            board.Append("   ").Append(horizontalLine).Append("\n");
+
+            return board.ToString();
         }
 
         /// <summary>
@@ -281,15 +284,18 @@ namespace Minesweeper
         /// <summary>
         /// Prints the header of the game board containing the column's indexes and a horizontal line
         /// </summary>
-        private void PrintColumnIndexes()
+        private string ColumnIndexesToString()
         {
-            Console.Write("    ");
+            StringBuilder columnIndexes = new StringBuilder();
+            columnIndexes.Append("    ");
             for (int column = 0; column < this.columns; column++)
             {
-                Console.Write(column + " ");
+                columnIndexes.Append(column).Append(" ");
             }
 
-            Console.WriteLine();
+            columnIndexes.Append("\n");
+
+            return columnIndexes.ToString();
         }
 
         /// <summary>
