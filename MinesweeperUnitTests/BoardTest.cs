@@ -45,5 +45,20 @@
 
             Assert.AreEqual(expectedString.ToString(), board.ToString(), "Board string is wrong!");
         }
+
+        [TestMethod]
+        public void TestBoardToString2()
+        {
+            Board board = new Board(1, 1, 1);
+            StringBuilder expectedString = new StringBuilder();
+            expectedString.Append("    0 \n");
+            expectedString.Append("   ___\n");
+            expectedString.Append("0 | ? |\n");
+            expectedString.Append("   ___\n");
+
+            Assert.AreEqual(expectedString.ToString(), board.ToString(), "Board string is wrong!");
+        }
+
+
     }
 }
