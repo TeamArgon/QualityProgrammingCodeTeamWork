@@ -33,30 +33,30 @@
         public void TestBoardToString1()
         {
             Board board = new Board(5, 10, 10);
-            StringBuilder expectedString = new StringBuilder();
-            expectedString.Append("    0 1 2 3 4 5 6 7 8 9 \n");
-            expectedString.Append("   _____________________\n");
-            expectedString.Append("0 | ? ? ? ? ? ? ? ? ? ? |\n");
-            expectedString.Append("1 | ? ? ? ? ? ? ? ? ? ? |\n");
-            expectedString.Append("2 | ? ? ? ? ? ? ? ? ? ? |\n");
-            expectedString.Append("3 | ? ? ? ? ? ? ? ? ? ? |\n");
-            expectedString.Append("4 | ? ? ? ? ? ? ? ? ? ? |\n");
-            expectedString.Append("   _____________________\n");
+            StringBuilder expected = new StringBuilder();
+            expected.Append("    0 1 2 3 4 5 6 7 8 9 \n");
+            expected.Append("   _____________________\n");
+            expected.Append("0 | ? ? ? ? ? ? ? ? ? ? |\n");
+            expected.Append("1 | ? ? ? ? ? ? ? ? ? ? |\n");
+            expected.Append("2 | ? ? ? ? ? ? ? ? ? ? |\n");
+            expected.Append("3 | ? ? ? ? ? ? ? ? ? ? |\n");
+            expected.Append("4 | ? ? ? ? ? ? ? ? ? ? |\n");
+            expected.Append("   _____________________\n");
 
-            Assert.AreEqual(expectedString.ToString(), board.ToString(), "Board string is wrong!");
+            Assert.AreEqual(expected.ToString(), board.ToString(), "Board string is wrong!");
         }
 
         [TestMethod]
         public void TestBoardToString2()
         {
             Board board = new Board(1, 1, 1);
-            StringBuilder expectedString = new StringBuilder();
-            expectedString.Append("    0 \n");
-            expectedString.Append("   ___\n");
-            expectedString.Append("0 | ? |\n");
-            expectedString.Append("   ___\n");
+            StringBuilder expected = new StringBuilder();
+            expected.Append("    0 \n");
+            expected.Append("   ___\n");
+            expected.Append("0 | ? |\n");
+            expected.Append("   ___\n");
 
-            Assert.AreEqual(expectedString.ToString(), board.ToString(), "Board string is wrong!");
+            Assert.AreEqual(expected.ToString(), board.ToString(), "Board string is wrong!");
         }
 
 
