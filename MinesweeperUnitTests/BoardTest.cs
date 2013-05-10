@@ -1,6 +1,7 @@
 ﻿namespace MinesweeperUnitTests
 {
     using System;
+    using System.Text;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Minesweeper;
 
@@ -26,6 +27,23 @@
         public void TestBoardConstructor3_ThrowsExcepsion()
         {
             Board board = new Board(10, 5, 51);
+        }
+
+        [TestMethod]
+        public void TestBoardToString1()
+        {
+            Board board = new Board(5, 10, 10);
+            StringBuilder expectedString = new StringBuilder();
+            expectedString.Append("    0 1 2 3 4 5 6 7 8 9 \n");
+            expectedString.Append("   _____________________\n");
+            expectedString.Append("0 | ? ? ? ? ? ? ? ? ? ? |\n");
+            expectedString.Append("1 | ? ? ? ? ? ? ? ? ? ? |\n");
+            expectedString.Append("2 | ? ? ? ? ? ? ? ? ? ? |\n");
+            expectedString.Append("3 | ? ? ? ? ? ? ? ? ? ? |\n");
+            expectedString.Append("4 | ? ? ? ? ? ? ? ? ? ? |\n");
+            expectedString.Append("   _____________________\n");
+
+            Assert.AreEqual(expectedString.ToString(), board.ToString(), "Board string is wrong!");
         }
     }
 }
