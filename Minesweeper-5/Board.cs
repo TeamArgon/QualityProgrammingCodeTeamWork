@@ -7,6 +7,7 @@
 namespace Minesweeper
 {
     using System;
+    using System.Diagnostics;
     using System.Text;
     
     /// <summary>
@@ -341,13 +342,12 @@ namespace Minesweeper
         /// <returns>Generated random number</returns>
         private int GenerateRandomNumber(int minValue, int maxValue)
         {
-            if (minValue >= maxValue)
-            {
-                throw new ArgumentOutOfRangeException("Minimum value must not be more or equal ot the maximum value !!!");
-            }
+            Debug.Assert(minValue < maxValue, "The maxValue must be bigger than minValue!");
 
             Random random = new Random();
             int number = random.Next(minValue, maxValue);
+
+            Debug.Assert(minValue <= number && number < maxValue, "The number must be between min and max value!");
             return number;
         }
 
