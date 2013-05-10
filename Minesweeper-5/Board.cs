@@ -45,17 +45,20 @@ namespace Minesweeper
         {
             if (rows < 1)
             {
-                throw new ArgumentOutOfRangeException("Rows must not be less then one !!!");
+                throw new ArgumentOutOfRangeException("rows", rows, "Rows cannot not be less then one !!!");
             }
 
             if (columns < 1)
             {
-                throw new ArgumentOutOfRangeException("Columns must not be less then one !!!");
+                throw new ArgumentOutOfRangeException("columns", columns, "Columns cannot not be less then one !!!");
             }
 
-            if (minesCount < 1)
+            if (minesCount < 1 || rows * columns < minesCount)
             {
-                throw new ArgumentOutOfRangeException("There must be at least one mine on the board!!!");
+                throw new ArgumentOutOfRangeException(
+                    "minesCount", 
+                    minesCount,
+                    string.Format("The minesCount must be between 1 and {0}!!!", rows * columns));
             }
 
             this.rows = rows;
@@ -69,7 +72,7 @@ namespace Minesweeper
                 {
                     this.fields[row, column] = new Field();
                 }
-           } 
+            } 
 
             this.SetMines();
         }
