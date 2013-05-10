@@ -17,10 +17,6 @@ namespace Minesweeper
 
         public static void Main(string[] args)
         {
-            Player player1 = new Player("pesho", 10);
-            Player player2 = new Player("gosho", 9);
-
-            Console.WriteLine(player1.CompareTo(player2));
             Menu();
         }
 
