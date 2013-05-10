@@ -55,19 +55,19 @@ namespace Minesweeper
 
             if (minesCount < 1)
             {
-                throw new ArgumentOutOfRangeException("Must have at least one mine !!!");
+                throw new ArgumentOutOfRangeException("There must be at least one mine on the board!!!");
             }
 
             this.rows = rows;
             this.columns = columns;
             this.minesCount = minesCount;
-            this.fields = new Field[rows,columns];
+            this.fields = new Field[rows, columns];
 
             for (int row = 0; row < this.rows; row++)
             {
                 for (int column = 0; column < this.columns; column++)
                 {
-                    this.fields[row,column] = new Field();
+                    this.fields[row, column] = new Field();
                 }
            } 
 
@@ -103,10 +103,11 @@ namespace Minesweeper
         /// <summary>
         /// Prints the game board,  marking the unopened fields with '?'
         /// </summary>
+        /// <returns>Board as string</returns>
         public override string ToString()
         {
             StringBuilder board = new StringBuilder();
-            board.Append(ColumnIndexesToString());
+            board.Append(this.ColumnIndexesToString());
 
             string horizontalLine = new string('_', (this.columns * 2) + 1);
             board.Append("   ").Append(horizontalLine).Append("\n");
@@ -138,10 +139,11 @@ namespace Minesweeper
         /// <summary>
         /// Prints the game board, revealing all the fields. It is used when the game is over.
         /// </summary>
+        /// <returns>Board as string with all the fields revealed</returns>
         public string ToStringAllFieldsRevealed()
         {
             StringBuilder board = new StringBuilder();
-            board.Append(ColumnIndexesToString());
+            board.Append(this.ColumnIndexesToString());
 
             string horizontalLine = new string('_', (this.columns * 2) + 1);
             board.Append("   ").Append(horizontalLine).Append("\n");
@@ -298,8 +300,9 @@ namespace Minesweeper
         }
 
         /// <summary>
-        /// Prints the header of the game board containing the column's indexes and a horizontal line
+        /// Converts the header of the game board containing the column's indexes and a horizontal line into string
         /// </summary>
+        /// <returns>The column indexes as string</returns>
         private string ColumnIndexesToString()
         {
             StringBuilder columnIndexes = new StringBuilder();
