@@ -71,10 +71,9 @@ namespace Minesweeper
                             if (status == Board.Status.SteppedOnAMine)
                             {
                                 int score = this.board.CountOpenedFields();
-                                this.gameRenderer.DisplayMessage(this.board.ToStringAllFieldsRevealed());
                                 this.EndGame(string.Format(
                                     "Booooom! You were killed by a mine. You revealed" +
-                                    "{0} cells without mines.",
+                                    " {0} cells without mines.",
                                     score));
                                 command = "restart";
                                 continue;
