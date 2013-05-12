@@ -53,6 +53,7 @@
     <Compile Include="BoardTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ConsoleInputMethodTests.cs" />
+    <Compile Include="ConsoleRendererTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Minesweeper-5\Minesweeper.csproj">

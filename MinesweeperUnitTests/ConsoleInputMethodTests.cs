@@ -8,27 +8,27 @@
     [TestClass]
     public class ConsoleInputMethodTests
     {
-        StringWriter stringWriter;
-        StringReader stringReader;
+        private StringWriter stringWriter;
+        private StringReader stringReader;
 
         [TestInitialize]
         public void InitializeWriterStream()
         {
-            stringWriter = new StringWriter();
+            this.stringWriter = new StringWriter();
         }
 
         [TestMethod]
         public void ConsoleInputMethodStringTest1()
         {
             string testString = "test string";
-            stringReader = new StringReader(testString);
+            this.stringReader = new StringReader(testString);
 
-            using (stringWriter)
+            using (this.stringWriter)
             {
-                using (stringReader)
+                using (this.stringReader)
                 {
-                    Console.SetOut(stringWriter);
-                    Console.SetIn(stringReader);
+                    Console.SetOut(this.stringWriter);
+                    Console.SetIn(this.stringReader);
                     ConsoleInputMethod inputMethod = new ConsoleInputMethod();
                     string actual = inputMethod.GetUserInput();
                     string expected = "test string";
@@ -41,14 +41,14 @@
         public void ConsoleInputMethodStringTest2()
         {
             string testString = "1";
-            stringReader = new StringReader(testString);
+            this.stringReader = new StringReader(testString);
 
-            using (stringWriter)
+            using (this.stringWriter)
             {
-                using (stringReader)
+                using (this.stringReader)
                 {
-                    Console.SetOut(stringWriter);
-                    Console.SetIn(stringReader);
+                    Console.SetOut(this.stringWriter);
+                    Console.SetIn(this.stringReader);
                     ConsoleInputMethod controller = new ConsoleInputMethod();
                     string actual = controller.GetUserInput();
                     string expected = "1";
@@ -61,14 +61,14 @@
         public void ConsoleInputMethodStringTest3()
         {
             string testString = "exit";
-            stringReader = new StringReader(testString);
+            this.stringReader = new StringReader(testString);
 
-            using (stringWriter)
+            using (this.stringWriter)
             {
-                using (stringReader)
+                using (this.stringReader)
                 {
-                    Console.SetOut(stringWriter);
-                    Console.SetIn(stringReader);
+                    Console.SetOut(this.stringWriter);
+                    Console.SetIn(this.stringReader);
                     ConsoleInputMethod controller = new ConsoleInputMethod();
                     string actual = controller.GetUserInput();
                     string expected = "exit";

@@ -14,7 +14,7 @@
         /// <param name="board">The board to draw.</param>
         public void DrawBoard(Board board)
         {
-            Console.WriteLine(board.ToString());
+            Console.Write(board.ToString());
         }
 
         /// <summary>

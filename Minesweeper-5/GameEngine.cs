@@ -202,6 +202,12 @@ namespace Minesweeper
             {
                 this.gameRenderer.DisplayMessage("Please enter your name for the top scoreboard: ");
                 string name = this.inputMethod.GetUserInput();
+                while (name == null || name == string.Empty)
+                {
+                    this.gameRenderer.DisplayError("The name cannot be empty");
+                    name = this.inputMethod.GetUserInput();
+                }
+
                 Player player = new Player(name, score);
                 this.AddTopScore(player);
             }
