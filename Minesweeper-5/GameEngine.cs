@@ -31,7 +31,7 @@ namespace Minesweeper
         public void StartGame()
         {
             string command = "restart";
-            int choosenRow = 0;
+            int chosenRow = 0;
             int chosenColumn = 0;
 
             while (command != "exit")
@@ -56,7 +56,7 @@ namespace Minesweeper
                     case "coordinates":
                         try
                         {
-                            Board.Status status = this.board.OpenField(choosenRow, chosenColumn);
+                            Board.Status status = this.board.OpenField(chosenRow, chosenColumn);
                             if (status == Board.Status.SteppedOnAMine)
                             {
                                 this.gameRenderer.Draw(this.board.ToStringAllFieldsRevealed());
@@ -115,29 +115,24 @@ namespace Minesweeper
 
                 Console.Write(System.Environment.NewLine + "Enter row and column: ");
 
-                string playerSelectedRow;
-                playerSelectedRow = Console.ReadLine();
-                try
-                {
-                    choosenRow = int.Parse(playerSelectedRow);
-                    command = "coordinates";
-                }
-                catch
-                {
-                    // niama smisal tuka
-                    continue;
-                }
+                string playerInput = Console.ReadLine();
 
-                string playerSelectedCol;
-                playerSelectedCol = Console.ReadLine();
-                try
+                if (int.TryParse(playerInput, out chosenRow))
                 {
-                    chosenColumn = int.Parse(playerSelectedCol);
                     command = "coordinates";
+                    playerInput = Console.ReadLine();
+                    if (int.TryParse(playerInput, out chosenColumn))
+                    {
+                        command = "coordinates";
+                    }
+                    else
+                    {
+                        command = playerInput;
+                    }
                 }
-                catch (Exception)
+                else
                 {
-                    continue;
+                    command = playerInput;
                 }
             }
         }

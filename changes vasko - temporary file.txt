@@ -12,4 +12,4 @@ changed all occurences of Console.WriteLine() with gameRenderer.Draw()
 made StartGame() public as it should be exposed to the public so that a new game can be started
 updated DisplayTopScores() to use string.Format()
 changed else - if chain to switch statement
-renamed string str to command for clarity
+renamed string "str" to "command" for clarity
