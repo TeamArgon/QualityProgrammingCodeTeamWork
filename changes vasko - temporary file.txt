@@ -4,3 +4,12 @@ created ConsoleRenderer, which implements the IRenderer interface
 moved InitializeGameBoard() functionality in constructor
 moved InitializeTopPlayers() functionality in constructor
 created method GenerateNewBoard() for creating a new board
+renamed Menu() to StartGame() for clarity
+renamed CheckHighScores() to IsHighScore() for clarity
+changed project to .NET framework 4.5
+optimized IsHighScore() method to use Linq for faster checking of top scores
+changed all occurences of Console.WriteLine() with gameRenderer.Draw()
+made StartGame() public as it should be exposed to the public so that a new game can be started
+updated DisplayTopScores() to use string.Format()
+changed else - if chain to switch statement
+renamed string str to command for clarity
