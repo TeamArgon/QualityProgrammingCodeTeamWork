@@ -27,7 +27,7 @@
                 Console.SetOut(stringWriter);
                 renderer.DisplayMessage(message);
                 string expected = message;
-                string actual = stringWriter.ToString();
+                string actual = stringWriter.ToString().Trim();
                 Assert.AreEqual(expected, actual, "The message was displayed incorrectly!");
             }
         }
