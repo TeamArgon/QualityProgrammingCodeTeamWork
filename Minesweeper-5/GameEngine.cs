@@ -25,12 +25,6 @@ namespace Minesweeper
             this.GenerateNewBoard();
         }
 
-        public static void Main(string[] args)
-        {
-            GameEngine ge = new GameEngine(new ConsoleRenderer(), new ConsoleGameController());
-            ge.StartGame();
-        }
-
         public void StartGame()
         {
             string command = "restart";

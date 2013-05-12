@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="GameElements\Board.cs" />
     <Compile Include="Controller\ConsoleGameController.cs" />
+    <Compile Include="MinesweeperGame.cs" />
     <Compile Include="Renderer\ConsoleRenderer.cs" />
     <Compile Include="GameEngine.cs" />
     <Compile Include="GameElements\Field.cs" />

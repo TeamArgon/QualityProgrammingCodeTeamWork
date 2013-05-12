@@ -18,6 +18,8 @@ extracted method AddToTopScores, which adds a score to the top scores if it qual
 created an interface IGameController which gets the user input
 created a class ConsoleGameController which gets the user input via the console
 organized classes by folders
+created new class MinesweeperGame
+moved the entry point of the program from the GameEngine class to the MinesweeperGame class
 
 TODOs: 
 - create a gameController, decoupling the game from the console
