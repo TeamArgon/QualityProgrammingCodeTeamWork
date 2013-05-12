@@ -1,14 +1,38 @@
-﻿namespace Minesweeper
+﻿namespace Minesweeper.Renderer
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
+    using Minesweeper;
 
+    /// <summary>
+    /// A renderer that uses the console to display the game.
+    /// </summary>
     public class ConsoleRenderer : IRenderer
     {
-        public void Draw(string element)
+        /// <summary>
+        /// Draws the game board on the console.
+        /// </summary>
+        /// <param name="board">The board to draw.</param>
+        public void DrawBoard(Board board)
         {
-            Console.WriteLine(element);
+            Console.WriteLine(board.ToString());
+        }
+
+        /// <summary>
+        /// Displays the message on the console.
+        /// </summary>
+        /// <param name="message">The message to display.</param>
+        public void DisplayMessage(string message)
+        {
+            Console.WriteLine(message);
+        }
+
+        /// <summary>
+        /// Displays the error on the console.
+        /// </summary>
+        /// <param name="error">The error to display.</param>
+        public void DisplayError(string error)
+        {
+            Console.WriteLine(error);
         }
     }
 }

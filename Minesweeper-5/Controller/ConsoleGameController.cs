@@ -1,13 +1,16 @@
-﻿namespace Minesweeper
+﻿namespace Minesweeper.Controller
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
+    /// <summary>
+    /// A class that lets the user control the game using the console.
+    /// </summary>
     public class ConsoleGameController : IGameController
     {
+        /// <summary>
+        /// Gets the user input.
+        /// </summary>
+        /// <returns>A string with the user command.</returns>
         public string GetUserInput()
         {
             string userCommand = Console.ReadLine();

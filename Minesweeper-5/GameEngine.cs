@@ -4,18 +4,28 @@ namespace Minesweeper
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
+    using Minesweeper.Controller;
+    using Minesweeper.Renderer;
 
+    /// <summary>
+    /// The game engine class, used to start a new game
+    /// </summary>
     public class GameEngine
     {
         private const int MaxRows = 5;
         private const int MaxColumns = 10;
         private const int MaxMines = 15;
         private const int MaxTopPlayers = 5;
-        private IRenderer gameRenderer;
-        private IGameController gameController;
+        private readonly IRenderer gameRenderer;
+        private readonly IGameController gameController;
+        private readonly List<Player> topPlayers;
         private Board board;
-        private List<Player> topPlayers;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GameEngine" /> class.
+        /// </summary>
+        /// <param name="renderer">The game renderer.</param>
+        /// <param name="controller">The user input method.</param>
         public GameEngine(IRenderer renderer, IGameController controller)
         {
             this.gameController = controller;
@@ -25,6 +35,9 @@ namespace Minesweeper
             this.GenerateNewBoard();
         }
 
+        /// <summary>
+        /// Starts the game.
+        /// </summary>
         public void StartGame()
         {
             string command = "restart";
@@ -37,17 +50,17 @@ namespace Minesweeper
                 {
                     case "restart":
                         this.GenerateNewBoard();
-                        this.gameRenderer.Draw("Welcome to the game “Minesweeper”. " +
+                        this.gameRenderer.DisplayMessage("Welcome to the game “Minesweeper”. " +
                             "Try to reveal all cells without mines. " +
                             "Use 'top' to view the scoreboard, 'restart' to start a new game" +
                             "and 'exit' to quit the game.");
-                        this.gameRenderer.Draw(this.board.ToString());
+                        this.gameRenderer.DrawBoard(this.board);
                         break;
                     case "top":
                         this.DisplayTopScores();
                         break;
                     case "exit":
-                        this.gameRenderer.Draw("Good bye!");
+                        this.gameRenderer.DisplayMessage("Good bye!");
                         return;
                     case "coordinates":
                         try
@@ -55,49 +68,49 @@ namespace Minesweeper
                             Board.Status status = this.board.OpenField(chosenRow, chosenColumn);
                             if (status == Board.Status.SteppedOnAMine)
                             {
-                                this.gameRenderer.Draw(this.board.ToStringAllFieldsRevealed());
+                                this.gameRenderer.DisplayMessage(this.board.ToStringAllFieldsRevealed());
                                 int score = this.board.CountOpenedFields();
-                                this.gameRenderer.Draw("Booooom! You were killed by a mine. You revealed " +
+                                this.gameRenderer.DisplayMessage("Booooom! You were killed by a mine. You revealed " +
                                     score +
                                     " cells without mines.");
 
-                                this.AddToTopScores(score);
+                                this.ProcessScore(score);
                                 this.DisplayTopScores();
                                 command = "restart";
                                 continue;
                             }
                             else if (status == Board.Status.FieldAlreadyOpened)
                             {
-                                this.gameRenderer.Draw("That field has already been opened!");
+                                this.gameRenderer.DisplayMessage("That field has already been opened!");
                             }
                             else if (status == Board.Status.AllFieldsAreOpened)
                             {
-                                this.gameRenderer.Draw(this.board.ToStringAllFieldsRevealed());
+                                this.gameRenderer.DisplayMessage(this.board.ToStringAllFieldsRevealed());
                                 int score = this.board.CountOpenedFields();
-                                this.gameRenderer.Draw("Congratulations! You win!!");
-                                this.AddToTopScores(score);
+                                this.gameRenderer.DisplayMessage("Congratulations! You win!!");
+                                this.ProcessScore(score);
                                 this.DisplayTopScores();
                                 command = "restart";
                                 continue;
                             }
                             else
                             {
-                                this.gameRenderer.Draw(this.board.ToString());
+                                this.gameRenderer.DrawBoard(this.board);
                             }
                         }
                         catch (IndexOutOfRangeException)
                         {
-                            this.gameRenderer.Draw("The row and column entered must be within the playing field!");
+                            this.gameRenderer.DisplayError("The row and column entered must be within the playing field!");
                         }
 
                         break;
                     default:
-                        this.gameRenderer.Draw("Invalid input!");
+                        this.gameRenderer.DisplayError("Invalid input!");
                         break;
                 }
 
-                this.gameRenderer.Draw("Enter row and column: ");
-
+                this.gameRenderer.DisplayMessage("Enter row and column: ");
+                
                 // TODO: extract this in a new method
                 string playerInput = this.gameController.GetUserInput();
                 if (int.TryParse(playerInput, out chosenRow))
@@ -120,11 +133,19 @@ namespace Minesweeper
             }
         }
 
+        /// <summary>
+        /// Generates a new board.
+        /// </summary>
         private void GenerateNewBoard()
         {
             this.board = new Board(MaxRows, MaxColumns, MaxMines);
         }
 
+        /// <summary>
+        /// Determines whether a score is among the top scores.
+        /// </summary>
+        /// <param name="score">The score.</param>
+        /// <returns>True if the score is one of the top scores.</returns>
         private bool IsHighScore(int score)
         {
             if (this.topPlayers.Capacity > this.topPlayers.Count)
@@ -140,8 +161,13 @@ namespace Minesweeper
             return false;
         }
 
+        /// <summary>
+        /// Adds a top score.
+        /// </summary>
+        /// <param name="player">The player that achieved the score.</param>
         private void AddTopScore(Player player)
         {
+            Debug.Assert(player != null, "The player cannot be null!");
             if (this.topPlayers.Capacity > this.topPlayers.Count)
             {
                 this.topPlayers.Add(player);
@@ -155,23 +181,26 @@ namespace Minesweeper
             }
         }
 
+        /// <summary>
+        /// Displays the top scores.
+        /// </summary>
         private void DisplayTopScores()
         {
-            this.gameRenderer.Draw("Scoreboard");
+            this.gameRenderer.DisplayMessage("Scoreboard");
             for (int i = 0; i < this.topPlayers.Count; i++)
             {
-                this.gameRenderer.Draw(string.Format("{0}. {1}", i + 1, this.topPlayers[i]));
+                this.gameRenderer.DisplayMessage(string.Format("{0}. {1}", i + 1, this.topPlayers[i]));
             }
         }
 
-        private void AddToTopScores(int score)
+        private void ProcessScore(int score)
         {
             Debug.Assert(score >= 0, "The score cannot be negative");
             Debug.Assert(score <= (MaxRows * MaxColumns) - MaxMines, "The score cannot be larger than the amount of empty fields");
 
             if (this.IsHighScore(score))
             {
-                this.gameRenderer.Draw("Please enter your name for the top scoreboard: ");
+                this.gameRenderer.DisplayMessage("Please enter your name for the top scoreboard: ");
                 string name = this.gameController.GetUserInput();
                 Player player = new Player(name, score);
                 this.AddTopScore(player);
