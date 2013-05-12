@@ -8,7 +8,7 @@ namespace Minesweeper
     using Minesweeper.Renderer;
 
     /// <summary>
-    /// The game engine class, used to start a new game
+    /// The game engine class, used to start a new game.
     /// </summary>
     public class GameEngine
     {
@@ -25,11 +25,11 @@ namespace Minesweeper
         /// Initializes a new instance of the <see cref="GameEngine" /> class.
         /// </summary>
         /// <param name="renderer">The game renderer.</param>
-        /// <param name="controller">The user input method.</param>
+        /// <param name="inputMethod">The user input method.</param>
         public GameEngine(IRenderer renderer, IInputMethod inputMethod)
         {
-            this.inputMethod = inputMethod;
             this.gameRenderer = renderer;
+            this.inputMethod = inputMethod;
             this.topPlayers = new List<Player>();
             this.topPlayers.Capacity = MaxTopPlayers;
             this.GenerateNewBoard();
@@ -50,10 +50,12 @@ namespace Minesweeper
                 {
                     case "restart":
                         this.GenerateNewBoard();
-                        this.gameRenderer.DisplayMessage("Welcome to the game “Minesweeper”. " +
+                        this.gameRenderer.DisplayMessage(
+                            "Welcome to the game “Minesweeper”. " +
                             "Try to reveal all cells without mines. " +
                             "Use 'top' to view the scoreboard, 'restart' to start a new game" +
                             "and 'exit' to quit the game.");
+
                         this.gameRenderer.DrawBoard(this.board);
                         break;
                     case "top":
@@ -187,6 +189,10 @@ namespace Minesweeper
             }
         }
 
+        /// <summary>
+        /// Processes the score by adding it to the top scores if necessary.
+        /// </summary>
+        /// <param name="score">The player score.</param>
         private void ProcessScore(int score)
         {
             Debug.Assert(score >= 0, "The score cannot be negative");
@@ -207,6 +213,10 @@ namespace Minesweeper
             }
         }
 
+        /// <summary>
+        /// Ends the game with a <paramref name="message"/>.
+        /// </summary>
+        /// <param name="message">The message.</param>
         private void EndGame(string message)
         {
             this.gameRenderer.DisplayMessage(this.board.ToStringAllFieldsRevealed());
