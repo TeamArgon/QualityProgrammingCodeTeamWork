@@ -178,7 +178,7 @@ namespace Minesweeper
             if (this.IsHighScore(score))
             {
                 this.gameRenderer.Draw("Please enter your name for the top scoreboard: ");
-                string name = Console.ReadLine();
+                string name = this.gameController.GetUserInput();
                 Player player = new Player(name, score);
                 this.AddTopScore(player);
             }
