@@ -13,3 +13,16 @@ made StartGame() public as it should be exposed to the public so that a new game
 updated DisplayTopScores() to use string.Format()
 changed else - if chain to switch statement
 renamed string "str" to "command" for clarity
+updated caught Exception to IndexOutOfRangeException, which is more specific
+extracted method AddToTopScores, which adds a score to the top scores if it qualifies
+created an interface IGameController which gets the user input
+created a class ConsoleGameController which gets the user input via the console
+organized classes by folders
+
+TODOs: 
+- create a gameController, decoupling the game from the console
+- further refactor the StartGame() method
+- comments + documentation
+- unit tests
+- add assertions
+- user input must be on the same line as the message "Enter row and column"

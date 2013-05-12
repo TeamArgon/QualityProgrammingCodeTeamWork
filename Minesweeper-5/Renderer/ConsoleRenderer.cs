@@ -6,7 +6,7 @@
 
     public class ConsoleRenderer : IRenderer
     {
-        public void Draw(String element)
+        public void Draw(string element)
         {
             Console.WriteLine(element);
         }

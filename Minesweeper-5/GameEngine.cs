@@ -2,6 +2,7 @@ namespace Minesweeper
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
 
     public class GameEngine
@@ -11,11 +12,13 @@ namespace Minesweeper
         private const int MaxMines = 15;
         private const int MaxTopPlayers = 5;
         private IRenderer gameRenderer;
+        private IGameController gameController;
         private Board board;
         private List<Player> topPlayers;
 
-        public GameEngine(IRenderer renderer)
+        public GameEngine(IRenderer renderer, IGameController controller)
         {
+            this.gameController = controller;
             this.gameRenderer = renderer;
             this.topPlayers = new List<Player>();
             this.topPlayers.Capacity = MaxTopPlayers;
@@ -24,7 +27,7 @@ namespace Minesweeper
 
         public static void Main(string[] args)
         {
-            GameEngine ge = new GameEngine(new ConsoleRenderer());
+            GameEngine ge = new GameEngine(new ConsoleRenderer(), new ConsoleGameController());
             ge.StartGame();
         }
 
@@ -65,36 +68,22 @@ namespace Minesweeper
                                     score +
                                     " cells without mines.");
 
-                                if (this.IsHighScore(score))
-                                {
-                                    this.gameRenderer.Draw("Please enter your name for the top scoreboard: ");
-                                    string name = Console.ReadLine();
-                                    Player player = new Player(name, score);
-                                    this.AddTopScore(player);
-                                    this.DisplayTopScores();
-                                }
-
+                                this.AddToTopScores(score);
+                                this.DisplayTopScores();
                                 command = "restart";
                                 continue;
                             }
                             else if (status == Board.Status.FieldAlreadyOpened)
                             {
-                                this.gameRenderer.Draw("Illegal move!");
+                                this.gameRenderer.Draw("That field has already been opened!");
                             }
                             else if (status == Board.Status.AllFieldsAreOpened)
                             {
                                 this.gameRenderer.Draw(this.board.ToStringAllFieldsRevealed());
                                 int score = this.board.CountOpenedFields();
                                 this.gameRenderer.Draw("Congratulations! You win!!");
-                                if (this.IsHighScore(score))
-                                {
-                                    this.gameRenderer.Draw("Please enter your name for the top scoreboard: ");
-                                    string name = Console.ReadLine();
-                                    Player player = new Player(name, score);
-                                    this.AddTopScore(player);
-                                    this.DisplayTopScores();
-                                }
-
+                                this.AddToTopScores(score);
+                                this.DisplayTopScores();
                                 command = "restart";
                                 continue;
                             }
@@ -103,24 +92,25 @@ namespace Minesweeper
                                 this.gameRenderer.Draw(this.board.ToString());
                             }
                         }
-                        catch (Exception)
+                        catch (IndexOutOfRangeException)
                         {
-                            this.gameRenderer.Draw("Illegal move");
+                            this.gameRenderer.Draw("The row and column entered must be within the playing field!");
                         }
 
                         break;
                     default:
+                        gameRenderer.Draw("Invalid input!");
                         break;
                 }
 
-                Console.Write(System.Environment.NewLine + "Enter row and column: ");
+                this.gameRenderer.Draw("Enter row and column: ");
 
-                string playerInput = Console.ReadLine();
-
+                // TODO: extract this in a new method
+                string playerInput = gameController.GetUserInput();
                 if (int.TryParse(playerInput, out chosenRow))
                 {
                     command = "coordinates";
-                    playerInput = Console.ReadLine();
+                    playerInput = gameController.GetUserInput();
                     if (int.TryParse(playerInput, out chosenColumn))
                     {
                         command = "coordinates";
@@ -178,6 +168,20 @@ namespace Minesweeper
             for (int i = 0; i < this.topPlayers.Count; i++)
             {
                 this.gameRenderer.Draw(string.Format("{0}. {1}", i + 1, this.topPlayers[i]));
+            }
+        }
+
+        private void AddToTopScores(int score)
+        {
+            Debug.Assert(score >= 0, "The score cannot be negative");
+            Debug.Assert(score <= (MaxRows * MaxColumns) - MaxMines, "The score cannot be larger than the amount of empty fields");
+
+            if (this.IsHighScore(score))
+            {
+                this.gameRenderer.Draw("Please enter your name for the top scoreboard: ");
+                string name = Console.ReadLine();
+                Player player = new Player(name, score);
+                this.AddTopScore(player);
             }
         }
     }
