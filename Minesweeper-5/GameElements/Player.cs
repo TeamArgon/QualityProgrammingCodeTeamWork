@@ -29,18 +29,8 @@ namespace Minesweeper.GameElements
         /// <param name="score">Player's score</param>
         public Player(string name, int score)
         {
-            if (string.IsNullOrEmpty(name))
-            {
-                throw new ArgumentNullException("The name of the player must not be null or empty !!!");
-            }
-
-            if (this.score < 0)
-            {
-                throw new ArgumentOutOfRangeException("Score must not be negative number !!!");
-            }
-
             this.Name = name;
-            this.score = score;
+            this.Score = score;
         }
 
         /// <summary>
@@ -52,6 +42,7 @@ namespace Minesweeper.GameElements
             { 
                 return this.name; 
             }
+
             private set
             {
                 if (string.IsNullOrEmpty(value))
@@ -72,6 +63,7 @@ namespace Minesweeper.GameElements
             {
                 return this.score;
             }
+
             set
             {
                 if (this.score < 0)
