@@ -1,6 +1,6 @@
 ﻿namespace Minesweeper
 {
-    using Minesweeper.Controller;
+    using Minesweeper.InputMethods;
     using Minesweeper.Renderer;
 
     /// <summary>
@@ -13,7 +13,7 @@
         /// </summary>
         public static void Main()
         {
-            GameEngine ge = new GameEngine(new ConsoleRenderer(), new ConsoleGameController());
+            GameEngine ge = new GameEngine(new ConsoleRenderer(), new ConsoleInputMethod());
             ge.StartGame();
         }
     }

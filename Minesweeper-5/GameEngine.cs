@@ -4,7 +4,7 @@ namespace Minesweeper
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
-    using Minesweeper.Controller;
+    using Minesweeper.InputMethods;
     using Minesweeper.Renderer;
 
     /// <summary>
@@ -17,7 +17,7 @@ namespace Minesweeper
         private const int MaxMines = 15;
         private const int MaxTopPlayers = 5;
         private readonly IRenderer gameRenderer;
-        private readonly IGameController gameController;
+        private readonly IInputMethod inputMethod;
         private readonly List<Player> topPlayers;
         private Board board;
 
@@ -26,9 +26,9 @@ namespace Minesweeper
         /// </summary>
         /// <param name="renderer">The game renderer.</param>
         /// <param name="controller">The user input method.</param>
-        public GameEngine(IRenderer renderer, IGameController controller)
+        public GameEngine(IRenderer renderer, IInputMethod inputMethod)
         {
-            this.gameController = controller;
+            this.inputMethod = inputMethod;
             this.gameRenderer = renderer;
             this.topPlayers = new List<Player>();
             this.topPlayers.Capacity = MaxTopPlayers;
@@ -112,11 +112,11 @@ namespace Minesweeper
                 this.gameRenderer.DisplayMessage("Enter row and column: ");
                 
                 // TODO: extract this in a new method
-                string playerInput = this.gameController.GetUserInput();
+                string playerInput = this.inputMethod.GetUserInput();
                 if (int.TryParse(playerInput, out chosenRow))
                 {
                     command = "coordinates";
-                    playerInput = this.gameController.GetUserInput();
+                    playerInput = this.inputMethod.GetUserInput();
                     if (int.TryParse(playerInput, out chosenColumn))
                     {
                         command = "coordinates";
@@ -201,7 +201,7 @@ namespace Minesweeper
             if (this.IsHighScore(score))
             {
                 this.gameRenderer.DisplayMessage("Please enter your name for the top scoreboard: ");
-                string name = this.gameController.GetUserInput();
+                string name = this.inputMethod.GetUserInput();
                 Player player = new Player(name, score);
                 this.AddTopScore(player);
             }

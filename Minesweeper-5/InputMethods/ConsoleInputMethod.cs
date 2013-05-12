@@ -1,11 +1,11 @@
-﻿namespace Minesweeper.Controller
+﻿namespace Minesweeper.InputMethods
 {
     using System;
 
     /// <summary>
     /// A class that lets the user control the game using the console.
     /// </summary>
-    public class ConsoleGameController : IGameController
+    public class ConsoleInputMethod : IInputMethod
     {
         /// <summary>
         /// Gets the user input.

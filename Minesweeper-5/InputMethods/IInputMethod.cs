@@ -1,9 +1,9 @@
-﻿namespace Minesweeper.Controller
+﻿namespace Minesweeper.InputMethods
 {
     /// <summary>
     /// An interface that provides a method to obtain the user input.
     /// </summary>
-    public interface IGameController
+    public interface IInputMethod
     {
         /// <summary>
         /// Gets the user input.
