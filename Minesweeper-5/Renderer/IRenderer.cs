@@ -1,7 +1,7 @@
 ﻿namespace Minesweeper.Renderer
 {
-    using Minesweeper;
-
+    using Minesweeper.GameElements;
+  
     /// <summary>
     /// A renderer with methods to display the game board, a game message
     /// and an error message.

@@ -4,6 +4,7 @@ namespace Minesweeper
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
+    using Minesweeper.GameElements;
     using Minesweeper.InputMethods;
     using Minesweeper.Renderer;
 
@@ -201,7 +202,7 @@ namespace Minesweeper
             {
                 this.gameRenderer.DisplayMessage("Please enter your name for the top scoreboard: ");
                 string name = this.inputMethod.GetUserInput();
-                while (name == null || name == string.Empty)
+                while (string.IsNullOrEmpty(name))
                 {
                     this.gameRenderer.DisplayError("The name cannot be empty");
                     name = this.inputMethod.GetUserInput();

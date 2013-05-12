@@ -3,8 +3,7 @@
 // All rights reserved © Telerik Academy 2012-2013
 // </copyright>
 //-----------------------------------------------------------------------
-
-namespace Minesweeper
+namespace Minesweeper.GameElements
 {
     using System;
 
@@ -35,7 +34,7 @@ namespace Minesweeper
                 throw new ArgumentNullException("The name of the player must not be null or empty !!!");
             }
 
-            if (score < 0)
+            if (this.score < 0)
             {
                 throw new ArgumentOutOfRangeException("Score must not be negative number !!!");
             }
@@ -59,6 +58,7 @@ namespace Minesweeper
                 {
                     throw new ArgumentNullException("The name of the player must not be null or empty !!!");
                 }
+
                 this.name = value;
             }
         }
@@ -74,10 +74,11 @@ namespace Minesweeper
             }
             set
             {
-                if (score < 0)
+                if (this.score < 0)
                 {
                     throw new ArgumentOutOfRangeException("Score must not be negative number !!!");
                 }
+
                 this.score = value; 
             }
         }

@@ -1,7 +1,7 @@
 ﻿namespace Minesweeper.Renderer
 {
     using System;
-    using Minesweeper;
+    using Minesweeper.GameElements;
 
     /// <summary>
     /// A renderer that uses the console to display the game.
