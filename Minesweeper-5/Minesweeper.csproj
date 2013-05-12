@@ -58,8 +58,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Board.cs" />
-    <Compile Include="Game.cs" />
+    <Compile Include="ConsoleRenderer.cs" />
+    <Compile Include="GameEngine.cs" />
     <Compile Include="Field.cs" />
+    <Compile Include="IRenderer.cs" />
     <Compile Include="Player.cs" />
   </ItemGroup>
   <ItemGroup>

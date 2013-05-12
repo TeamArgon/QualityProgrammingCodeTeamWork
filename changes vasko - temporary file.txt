@@ -1,0 +1,6 @@
+renamed Game to GameEngine
+added IRenderer interface
+created ConsoleRenderer, which implements the IRenderer interface
+moved InitializeGameBoard() functionality in constructor
+moved InitializeTopPlayers() functionality in constructor
+created method GenerateNewBoard() for creating a new board
