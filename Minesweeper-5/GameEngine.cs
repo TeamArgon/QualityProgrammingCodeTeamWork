@@ -68,14 +68,12 @@ namespace Minesweeper
                             Board.Status status = this.board.OpenField(chosenRow, chosenColumn);
                             if (status == Board.Status.SteppedOnAMine)
                             {
-                                this.gameRenderer.DisplayMessage(this.board.ToStringAllFieldsRevealed());
                                 int score = this.board.CountOpenedFields();
-                                this.gameRenderer.DisplayMessage("Booooom! You were killed by a mine. You revealed " +
-                                    score +
-                                    " cells without mines.");
-
-                                this.ProcessScore(score);
-                                this.DisplayTopScores();
+                                this.gameRenderer.DisplayMessage(this.board.ToStringAllFieldsRevealed());
+                                this.EndGame(string.Format(
+                                    "Booooom! You were killed by a mine. You revealed" +
+                                    "{0} cells without mines.",
+                                    score));
                                 command = "restart";
                                 continue;
                             }
@@ -85,11 +83,7 @@ namespace Minesweeper
                             }
                             else if (status == Board.Status.AllFieldsAreOpened)
                             {
-                                this.gameRenderer.DisplayMessage(this.board.ToStringAllFieldsRevealed());
-                                int score = this.board.CountOpenedFields();
-                                this.gameRenderer.DisplayMessage("Congratulations! You win!!");
-                                this.ProcessScore(score);
-                                this.DisplayTopScores();
+                                this.EndGame("Congratulations! You win!!");
                                 command = "restart";
                                 continue;
                             }
@@ -110,7 +104,7 @@ namespace Minesweeper
                 }
 
                 this.gameRenderer.DisplayMessage("Enter row and column: ");
-                
+
                 // TODO: extract this in a new method
                 string playerInput = this.inputMethod.GetUserInput();
                 if (int.TryParse(playerInput, out chosenRow))
@@ -211,6 +205,15 @@ namespace Minesweeper
                 Player player = new Player(name, score);
                 this.AddTopScore(player);
             }
+        }
+
+        private void EndGame(string message)
+        {
+            this.gameRenderer.DisplayMessage(this.board.ToStringAllFieldsRevealed());
+            int score = this.board.CountOpenedFields();
+            this.gameRenderer.DisplayMessage(message);
+            this.ProcessScore(score);
+            this.DisplayTopScores();
         }
     }
 }
