@@ -54,8 +54,7 @@ namespace Minesweeper
                         break;
                     case "exit":
                         this.gameRenderer.Draw("Good bye!");
-                        Console.Read();
-                        break;
+                        return;
                     case "coordinates":
                         try
                         {
@@ -99,18 +98,18 @@ namespace Minesweeper
 
                         break;
                     default:
-                        gameRenderer.Draw("Invalid input!");
+                        this.gameRenderer.Draw("Invalid input!");
                         break;
                 }
 
                 this.gameRenderer.Draw("Enter row and column: ");
 
                 // TODO: extract this in a new method
-                string playerInput = gameController.GetUserInput();
+                string playerInput = this.gameController.GetUserInput();
                 if (int.TryParse(playerInput, out chosenRow))
                 {
                     command = "coordinates";
-                    playerInput = gameController.GetUserInput();
+                    playerInput = this.gameController.GetUserInput();
                     if (int.TryParse(playerInput, out chosenColumn))
                     {
                         command = "coordinates";
