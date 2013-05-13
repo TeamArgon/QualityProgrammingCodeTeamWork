@@ -30,4 +30,4 @@ TODOs:
 - comments + documentation
 - unit tests
 - add assertions
-- user input must be on the same line as the message "Enter row and column"
+- extract HighScores in a separate class
