@@ -2,7 +2,9 @@
 {
     using System;
     using System.IO;
+    using System.Text;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Minesweeper.Common;
     using Minesweeper.Renderer;
 
     [TestClass]
@@ -76,6 +78,26 @@
             renderer.DisplayMessage(message);
             string expected = message;
             string actual = stringWriter.ToString().Trim();
+            Assert.AreEqual(expected, actual, "The message was displayed incorrectly!");
+        }
+
+        [TestMethod]
+        public void ConsoleRendererTestDrawBoard()
+        {
+            Board board = new Board(5, 5, 10);
+            StringBuilder result = new StringBuilder();
+            result.Append("    0 1 2 3 4 \n");
+            result.Append("   ___________\n");
+            result.Append("0 | ? ? ? ? ? |\n");
+            result.Append("1 | ? ? ? ? ? |\n");
+            result.Append("2 | ? ? ? ? ? |\n");
+            result.Append("3 | ? ? ? ? ? |\n");
+            result.Append("4 | ? ? ? ? ? |\n");
+            result.Append("   ___________\n");            
+            Console.SetOut(stringWriter);
+            renderer.DrawBoard(board);
+            string expected = result.ToString();
+            string actual = stringWriter.ToString();
             Assert.AreEqual(expected, actual, "The message was displayed incorrectly!");
         }
     }
