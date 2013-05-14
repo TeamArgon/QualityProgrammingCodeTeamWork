@@ -60,17 +60,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameElements\Board.cs" />
-    <Compile Include="GameElements\BoardStatus.cs" />
-    <Compile Include="GameElements\FieldStatus.cs" />
+    <Compile Include="Common\Board.cs" />
+    <Compile Include="Common\BoardStatus.cs" />
+    <Compile Include="Common\FieldStatus.cs" />
+    <Compile Include="Common\HighScores.cs" />
     <Compile Include="InputMethods\ConsoleInputMethod.cs" />
     <Compile Include="MinesweeperGame.cs" />
     <Compile Include="Renderer\ConsoleRenderer.cs" />
     <Compile Include="GameEngine.cs" />
-    <Compile Include="GameElements\Field.cs" />
+    <Compile Include="Common\Field.cs" />
     <Compile Include="InputMethods\IInputMethod.cs" />
     <Compile Include="Renderer\IRenderer.cs" />
-    <Compile Include="GameElements\Player.cs" />
+    <Compile Include="Common\Player.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

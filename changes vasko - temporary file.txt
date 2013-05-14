@@ -17,13 +17,14 @@ updated caught Exception to IndexOutOfRangeException, which is more specific
 extracted method AddToTopScores, which adds a score to the top scores if it qualifies
 created an interface IGameController which gets the user input
 created a class ConsoleGameController which gets the user input via the console
-organized classes by folders - moved game input methods and interface in the Input Methods; the Board, Field and Player classes to GameElements folder; the game renderer and interface in the Renderer folder
+organized classes by folders - moved game input methods and interface in the Input Methods; the Board, Field and Player classes to Common folder; the game renderer and interface in the Renderer folder and created appropriate namespaces
 created new class MinesweeperGame
 moved the entry point of the program from the GameEngine class to the MinesweeperGame class
 extracted duplicating code in method called EndGame
 added check if the player entered a blank name
 added unit tests for the console input method
 added documentation for most methods
+extracted scores in a new class called HighScores
 
 TODOs: 
 - further refactor the StartGame() method

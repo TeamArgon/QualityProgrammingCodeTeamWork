@@ -3,7 +3,7 @@
     using System;
     using System.Text;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Minesweeper.GameElements;
+    using Minesweeper.Common;
 
     [TestClass]
     public class BoardTest

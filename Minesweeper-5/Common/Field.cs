@@ -3,7 +3,7 @@
 // All rights reserved © Telerik Academy 2012-2013
 // </copyright>
 //-----------------------------------------------------------------------
-namespace Minesweeper.GameElements
+namespace Minesweeper.Common
 {
     using System;
     

@@ -4,7 +4,7 @@ namespace Minesweeper
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
-    using Minesweeper.GameElements;
+    using Minesweeper.Common;
     using Minesweeper.InputMethods;
     using Minesweeper.Renderer;
 
@@ -19,8 +19,8 @@ namespace Minesweeper
         private const int MaxTopPlayers = 5;
         private readonly IRenderer gameRenderer;
         private readonly IInputMethod inputMethod;
-        private readonly List<Player> topPlayers;
         private Board board;
+        private HighScores scores;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameEngine" /> class.
@@ -31,8 +31,7 @@ namespace Minesweeper
         {
             this.gameRenderer = renderer;
             this.inputMethod = inputMethod;
-            this.topPlayers = new List<Player>();
-            this.topPlayers.Capacity = MaxTopPlayers;
+            scores = new HighScores(MaxTopPlayers);
             this.GenerateNewBoard();
         }
 
@@ -60,7 +59,8 @@ namespace Minesweeper
                         this.gameRenderer.DrawBoard(this.board);
                         break;
                     case "top":
-                        this.DisplayTopScores();
+                        string topScore = scores.DisplayTopScores();
+                        this.gameRenderer.DisplayMessage(topScore);
                         break;
                     case "exit":
                         this.gameRenderer.DisplayMessage("Good bye!");
@@ -138,92 +138,26 @@ namespace Minesweeper
         }
 
         /// <summary>
-        /// Determines whether a score is among the top scores.
-        /// </summary>
-        /// <param name="score">The score.</param>
-        /// <returns>True if the score is one of the top scores.</returns>
-        private bool IsHighScore(int score)
-        {
-            if (this.topPlayers.Capacity > this.topPlayers.Count)
-            {
-                return true;
-            }
-
-            if (score > this.topPlayers.Min().Score)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Adds a top score.
-        /// </summary>
-        /// <param name="player">The player that achieved the score.</param>
-        private void AddTopScore(Player player)
-        {
-            Debug.Assert(player != null, "The player cannot be null!");
-            if (this.topPlayers.Capacity > this.topPlayers.Count)
-            {
-                this.topPlayers.Add(player);
-                this.topPlayers.Sort();
-            }
-            else
-            {
-                this.topPlayers.RemoveAt(this.topPlayers.Capacity - 1);
-                this.topPlayers.Add(player);
-                this.topPlayers.Sort();
-            }
-        }
-
-        /// <summary>
-        /// Displays the top scores.
-        /// </summary>
-        private void DisplayTopScores()
-        {
-            this.gameRenderer.DisplayMessage("Scoreboard");
-            for (int i = 0; i < this.topPlayers.Count; i++)
-            {
-                this.gameRenderer.DisplayMessage(string.Format("{0}. {1}", i + 1, this.topPlayers[i]));
-            }
-        }
-
-        /// <summary>
-        /// Processes the score by adding it to the top scores if necessary.
-        /// </summary>
-        /// <param name="score">The player score.</param>
-        private void ProcessScore(int score)
-        {
-            Debug.Assert(score >= 0, "The score cannot be negative");
-            Debug.Assert(score <= (MaxRows * MaxColumns) - MaxMines, "The score cannot be larger than the amount of empty fields");
-
-            if (this.IsHighScore(score))
-            {
-                this.gameRenderer.DisplayMessage("Please enter your name for the top scoreboard: ");
-                string name = this.inputMethod.GetUserInput();
-                while (string.IsNullOrEmpty(name))
-                {
-                    this.gameRenderer.DisplayError("The name cannot be empty");
-                    name = this.inputMethod.GetUserInput();
-                }
-
-                Player player = new Player(name, score);
-                this.AddTopScore(player);
-            }
-        }
-
-        /// <summary>
         /// Ends the game with a <paramref name="message"/>.
         /// </summary>
         /// <param name="message">The message.</param>
         private void EndGame(string message)
         {
             this.gameRenderer.DisplayMessage(this.board.ToStringAllFieldsRevealed());
-            int score = this.board.CountOpenedFields();
             this.gameRenderer.DisplayMessage(message);
-            this.ProcessScore(score);
-            this.DisplayTopScores();
+
+            this.gameRenderer.DisplayMessage("Please enter a name:");
+            string playerName = this.inputMethod.GetUserInput();
+            while (string.IsNullOrEmpty(playerName))
+            {
+                this.gameRenderer.DisplayMessage("Invalid name. Please enter a name that is not empty:");
+                playerName = this.inputMethod.GetUserInput();
+            }
+
+            int score = this.board.CountOpenedFields();
+            this.scores.ProcessScore(score, playerName);
+            string topScores = this.scores.DisplayTopScores();
+            gameRenderer.DisplayMessage(topScores);
         }
     }
 }

@@ -3,34 +3,34 @@
 // All rights reserved © Telerik Academy 2012-2013
 // </copyright>
 //-----------------------------------------------------------------------
-namespace Minesweeper.GameElements
+namespace Minesweeper.Common
 {
     using System;
     using System.Diagnostics;
     using System.Text;
 
     /// <summary>
-    /// Represents a game board for the minesweeper game
+    /// Represents a game board for the minesweeper game.
     /// </summary>
     public class Board
     {
         /// <summary>
-        /// Number of rows on the boards
+        /// Number of rows on the boards.
         /// </summary>
         private readonly int rows;
 
         /// <summary>
-        /// Number of columns on the board
+        /// Number of columns on the board.
         /// </summary>
         private readonly int columns;
 
         /// <summary>
-        /// Number of mines placed on the board
+        /// Number of mines placed on the board.
         /// </summary>
         private readonly int minesCount;
 
         /// <summary>
-        /// The body of the board
+        /// The body of the board.
         /// </summary>
         private readonly Field[,] fields;
 
