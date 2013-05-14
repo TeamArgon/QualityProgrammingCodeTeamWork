@@ -58,5 +58,38 @@
 
             Assert.AreEqual(expected.ToString(), board.ToString(), "Board string is wrong!");
         }
+
+        [TestMethod]
+        public void TestCountOpenedFieldsWhenNoOpened()
+        {
+            Board board = new Board(2, 3, 1);
+            int actual=board.CountOpenedFields();
+            Assert.AreEqual(0,actual, "Wrong count of opened fields!");
+        }
+
+        [TestMethod]
+        public void TestOpenFieldWhenMine()
+        {
+            Board board = new Board(1, 1, 1);
+            board.OpenField(0, 0);
+            int actual = board.CountOpenedFields();
+            Assert.AreEqual(0, actual, "Wrong count of opened fields!");
+        }
+
+        [TestMethod]
+        public void TestToStringAllFieldsRevealed()
+        {
+            Board board = new Board(2, 2, 4);
+            StringBuilder result = new StringBuilder();
+            result.Append("    0 1 \n");
+            result.Append("   _____\n");
+            result.Append("0 | * * |\n");
+            result.Append("1 | * * |\n");
+            result.Append("   _____\n");
+            string expected = result.ToString();
+            string actual = board.ToStringAllFieldsRevealed();
+            Assert.AreEqual(expected, actual, "Wrong count of opened fields!");
+        }
     }
-}
+}  
+

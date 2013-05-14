@@ -66,7 +66,7 @@ namespace Minesweeper.Common
 
             set
             {
-                if (this.score < 0)
+                if (value < 0)
                 {
                     throw new ArgumentOutOfRangeException("Score must not be negative number !!!");
                 }
