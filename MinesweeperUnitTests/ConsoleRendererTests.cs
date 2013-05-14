@@ -5,7 +5,7 @@
     using System.Text;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Minesweeper.Common;
-    using Minesweeper.Renderer;
+    using Minesweeper.Renderers;
 
     [TestClass]
     public class ConsoleRendererTests

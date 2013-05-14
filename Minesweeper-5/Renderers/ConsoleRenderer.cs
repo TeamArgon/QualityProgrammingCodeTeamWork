@@ -1,4 +1,4 @@
-﻿namespace Minesweeper.Renderer
+﻿namespace Minesweeper.Renderers
 {
     using System;
     using Minesweeper.Common;

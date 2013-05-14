@@ -51,7 +51,7 @@ namespace MinesweeperUnitTests
             result.Append("1. e --> 17\r\n");
             result.Append("2. e --> 0\r\n");            
             string expected = result.ToString();
-            string actual = higScoresList.DisplayTopScores();
+            string actual = higScoresList.GetTopScores();
 
             Assert.AreEqual(expected, actual);
         }

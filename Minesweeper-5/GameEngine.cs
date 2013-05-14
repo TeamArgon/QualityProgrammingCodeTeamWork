@@ -6,7 +6,7 @@ namespace Minesweeper
     using System.Linq;
     using Minesweeper.Common;
     using Minesweeper.InputMethods;
-    using Minesweeper.Renderer;
+    using Minesweeper.Renderers;
 
     /// <summary>
     /// The game engine class, used to start a new game.
@@ -59,7 +59,8 @@ namespace Minesweeper
                         this.gameRenderer.DrawBoard(this.board);
                         break;
                     case "top":
-                        string topScore = this.scores.DisplayTopScores();
+                        this.gameRenderer.DisplayMessage("Scoreboard");
+                        string topScore = this.scores.GetTopScores();
                         this.gameRenderer.DisplayMessage(topScore);
                         break;
                     case "exit":
@@ -157,7 +158,8 @@ namespace Minesweeper
 
             int score = this.board.CountOpenedFields();
             this.scores.ProcessScore(playerName, score);
-            string topScores = this.scores.DisplayTopScores();
+            this.gameRenderer.DisplayMessage("Scoreboard");
+            string topScores = this.scores.GetTopScores();
             this.gameRenderer.DisplayMessage(topScores);
         }
     }

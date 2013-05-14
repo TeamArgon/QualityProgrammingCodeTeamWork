@@ -59,10 +59,9 @@
         /// <summary>
         /// Displays the top scores.
         /// </summary>
-        public string DisplayTopScores()
+        public string GetTopScores()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("Scoreboard");
             for (int i = 0; i < this.topPlayers.Count; i++)
             {
                 sb.AppendLine(string.Format("{0}. {1}", i + 1, this.topPlayers[i]));

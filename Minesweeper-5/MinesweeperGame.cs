@@ -1,7 +1,7 @@
 ﻿namespace Minesweeper
 {
     using Minesweeper.InputMethods;
-    using Minesweeper.Renderer;
+    using Minesweeper.Renderers;
 
     /// <summary>
     /// A class with the entry point of the program.
