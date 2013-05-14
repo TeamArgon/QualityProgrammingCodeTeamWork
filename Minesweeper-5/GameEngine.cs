@@ -31,7 +31,7 @@ namespace Minesweeper
         {
             this.gameRenderer = renderer;
             this.inputMethod = inputMethod;
-            scores = new HighScores(MaxTopPlayers);
+            this.scores = new HighScores(MaxTopPlayers);
             this.GenerateNewBoard();
         }
 
@@ -59,7 +59,7 @@ namespace Minesweeper
                         this.gameRenderer.DrawBoard(this.board);
                         break;
                     case "top":
-                        string topScore = scores.DisplayTopScores();
+                        string topScore = this.scores.DisplayTopScores();
                         this.gameRenderer.DisplayMessage(topScore);
                         break;
                     case "exit":
@@ -157,7 +157,7 @@ namespace Minesweeper
             int score = this.board.CountOpenedFields();
             this.scores.ProcessScore(score, playerName);
             string topScores = this.scores.DisplayTopScores();
-            gameRenderer.DisplayMessage(topScores);
+            this.gameRenderer.DisplayMessage(topScores);
         }
     }
 }

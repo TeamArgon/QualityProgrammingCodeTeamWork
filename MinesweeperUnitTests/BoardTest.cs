@@ -58,7 +58,5 @@
 
             Assert.AreEqual(expected.ToString(), board.ToString(), "Board string is wrong!");
         }
-
-
     }
 }

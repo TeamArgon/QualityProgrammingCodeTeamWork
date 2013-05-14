@@ -37,9 +37,9 @@ namespace Minesweeper.Common
         /// <summary>
         /// Initializes a new instance of the <see cref="Board" /> class.
         /// </summary>
-        /// <param name="rows">Number of rows on the board</param>
-        /// <param name="columns">Number of columns on the board</param>
-        /// <param name="minesCount">Number of mines on the board</param>
+        /// <param name="rows">Number of rows on the board.</param>
+        /// <param name="columns">Number of columns on the board.</param>
+        /// <param name="minesCount">Number of mines on the board.</param>
         public Board(int rows, int columns, int minesCount)
         {
             if (rows < 1)
@@ -77,9 +77,9 @@ namespace Minesweeper.Common
         }
 
         /// <summary>
-        /// Prints the game board,  marking the unopened fields with '?'
+        /// Prints the game board,  marking the unopened fields with '?'.
         /// </summary>
-        /// <returns>Board as string</returns>
+        /// <returns>Board as string.</returns>
         public override string ToString()
         {
             StringBuilder board = new StringBuilder();
@@ -115,7 +115,7 @@ namespace Minesweeper.Common
         /// <summary>
         /// Prints the game board, revealing all the fields. It is used when the game is over.
         /// </summary>
-        /// <returns>Board as string with all the fields revealed</returns>
+        /// <returns>Board as string with all the fields revealed.</returns>
         public string ToStringAllFieldsRevealed()
         {
             StringBuilder board = new StringBuilder();
@@ -154,11 +154,11 @@ namespace Minesweeper.Common
         }
 
         /// <summary>
-        /// Opens a field on the board
+        /// Opens a field on the board.
         /// </summary>
-        /// <param name="row">Row index of the field</param>
-        /// <param name="column">Column index of the field</param>
-        /// <returns>Status after field opening</returns>
+        /// <param name="row">Row index of the field.</param>
+        /// <param name="column">Column index of the field.</param>
+        /// <returns>Status after field opening.</returns>
         public BoardStatus OpenField(int row, int column)
         {
             Field field = this.fields[row, column];
@@ -190,9 +190,9 @@ namespace Minesweeper.Common
         }
 
         /// <summary>
-        /// Counts how many fields are opened
+        /// Counts how many fields are opened.
         /// </summary>
-        /// <returns>Number of opened fields</returns>
+        /// <returns>Number of opened fields.</returns>
         public int CountOpenedFields()
         {
             int count = 0;
@@ -214,9 +214,9 @@ namespace Minesweeper.Common
         /// Scans the surrounding fields of certain field in order to find 
         /// the number of the mines placed on the surrounding fields.
         /// </summary>
-        /// <param name="row">Row index of the field</param>
-        /// <param name="column">Column index of the field</param>
-        /// <returns>Number of mines placed on the surrounding fields</returns>
+        /// <param name="row">Row index of the field.</param>
+        /// <param name="column">Column index of the field.</param>
+        /// <returns>Number of mines placed on the surrounding fields.</returns>
         private int ScanSurroundingFields(int row, int column)
         {
             int mines = 0;
@@ -276,9 +276,9 @@ namespace Minesweeper.Common
         }
 
         /// <summary>
-        /// Converts the header of the game board containing the column's indexes and a horizontal line into string
+        /// Converts the header of the game board containing the column's indexes and a horizontal line into string.
         /// </summary>
-        /// <returns>The column indexes as string</returns>
+        /// <returns>The column indexes as string.</returns>
         private string ColumnIndexesToString()
         {
             StringBuilder columnIndexes = new StringBuilder();
@@ -294,7 +294,7 @@ namespace Minesweeper.Common
         }
 
         /// <summary>
-        /// Places certain number of mines in randomly chosen fields on the board
+        /// Places certain number of mines in randomly chosen fields on the board.
         /// </summary>
         private void SetMines()
         {
@@ -314,11 +314,11 @@ namespace Minesweeper.Common
         }
 
         /// <summary>
-        /// Generates random number in certain interval
+        /// Generates random number in certain interval.
         /// </summary>
-        /// <param name="minValue">Lower limit of the interval</param>
-        /// <param name="maxValue">Upper limit of the interval</param>
-        /// <returns>Generated random number</returns>
+        /// <param name="minValue">Lower limit of the interval.</param>
+        /// <param name="maxValue">Upper limit of the interval.</param>
+        /// <returns>Generated random number.</returns>
         private int GenerateRandomNumber(int minValue, int maxValue)
         {
             Debug.Assert(minValue < maxValue, "The maxValue must be bigger than minValue!");
@@ -334,8 +334,8 @@ namespace Minesweeper.Common
         /// Verifies if the game is successfully finished, checking if all the fields without mines placed on them are opened.
         /// </summary>
         /// <returns>
-        /// True - if all the mined fields are opened
-        /// False - if there are some mined fields unopened 
+        /// True - if all the mined fields are opened.
+        /// False - if there are some mined fields unopened .
         /// </returns>
         private bool CheckIfWin()
         {

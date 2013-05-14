@@ -1,9 +1,9 @@
 ﻿namespace MinesweeperUnitTests
 {
     using System;
+    using System.IO;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Minesweeper.Renderer;
-    using System.IO;
 
     [TestClass]
     public class ConsoleRendererTests

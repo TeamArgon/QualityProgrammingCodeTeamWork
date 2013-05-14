@@ -8,27 +8,27 @@ namespace Minesweeper.Common
     using System;
 
     /// <summary>
-    /// Board status after field opening
+    /// Board status after field opening.
     /// </summary>
     public enum BoardStatus
     {
         /// <summary>
-        /// Mined filed has been opened
+        /// Mined filed has been opened.
         /// </summary>
         SteppedOnAMine,
 
         /// <summary>
-        /// The opened field had been already opened
+        /// The opened field had been already opened.
         /// </summary>
         FieldAlreadyOpened,
 
         /// <summary>
-        /// The field has been successfully opened
+        /// The field has been successfully opened.
         /// </summary>
         FieldSuccessfullyOpened,
 
         /// <summary>
-        /// The last non-mined field has been successfully opened
+        /// The last non-mined field has been successfully opened.
         /// </summary>
         AllFieldsAreOpened
     }

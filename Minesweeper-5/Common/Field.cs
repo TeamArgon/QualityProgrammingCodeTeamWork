@@ -8,17 +8,17 @@ namespace Minesweeper.Common
     using System;
     
     /// <summary>
-    /// Represents one field of the game board
+    /// Represents one field of the game board.
     /// </summary>
     public class Field
     {
         /// <summary>
-        /// Holds the sum of all mines positioned in the surrounding fields
+        /// Holds the sum of all mines positioned in the surrounding fields.
         /// </summary>
         private int value;
 
         /// <summary>
-        /// The status of the field
+        /// The status of the field.
         /// </summary>
         private FieldStatus status;
 
@@ -31,9 +31,8 @@ namespace Minesweeper.Common
             this.status = FieldStatus.Closed;
         }
 
-
         /// <summary>
-        /// Gets or sets the sum of all mines positioned in the surrounding fields
+        /// Gets or sets the sum of all mines positioned in the surrounding fields.
         /// </summary>
         public int Value
         {
@@ -42,7 +41,7 @@ namespace Minesweeper.Common
         }
 
         /// <summary>
-        /// Gets or sets the status of the field
+        /// Gets or sets the status of the field.
         /// </summary>
         public FieldStatus Status
         {

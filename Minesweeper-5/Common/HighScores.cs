@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Minesweeper.Common
+﻿namespace Minesweeper.Common
 {
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Text;
+
     public class HighScores
     {
         private readonly List<Player> topPlayers;
@@ -80,14 +78,13 @@ namespace Minesweeper.Common
         {
             if (this.IsHighScore(score))
             {
-                //this.gameRenderer.DisplayMessage("Please enter your name for the top scoreboard: ");
-                //string name = this.inputMethod.GetUserInput();
-                //while (string.IsNullOrEmpty(name))
-                //{
-                //    this.gameRenderer.DisplayError("The name cannot be empty");
-                //    name = this.inputMethod.GetUserInput();
-                //}
-
+                // this.gameRenderer.DisplayMessage("Please enter your name for the top scoreboard: ");
+                // string name = this.inputMethod.GetUserInput();
+                // while (string.IsNullOrEmpty(name))
+                // {
+                //     this.gameRenderer.DisplayError("The name cannot be empty");
+                //     name = this.inputMethod.GetUserInput();
+                // }
                 Player player = new Player(name, score);
                 this.AddTopScore(player);
             }

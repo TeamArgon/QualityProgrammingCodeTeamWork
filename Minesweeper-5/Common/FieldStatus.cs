@@ -8,22 +8,22 @@ namespace Minesweeper.Common
     using System;
 
     /// <summary>
-    /// Field status collection
+    /// Field status collection.
     /// </summary>
     public enum FieldStatus
     {
         /// <summary>
-        /// The field is closed
+        /// The field is closed.
         /// </summary>
         Closed,
 
         /// <summary>
-        /// The field is opened
+        /// The field is opened.
         /// </summary>
         Opened,
 
         /// <summary>
-        /// The field contains a mine
+        /// The field contains a mine.
         /// </summary>
         IsAMine
     }

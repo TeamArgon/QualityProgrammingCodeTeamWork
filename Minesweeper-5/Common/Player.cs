@@ -8,25 +8,25 @@ namespace Minesweeper.Common
     using System;
 
     /// <summary>
-    /// Represents a game player
+    /// Represents a game player.
     /// </summary>
     public class Player : IComparable
     {
         /// <summary>
-        /// Player's name
+        /// Player's name.
         /// </summary>
         private string name;
 
         /// <summary>
-        /// Player's score
+        /// Player's score.
         /// </summary>
         private int score;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Player" /> class.
         /// </summary>
-        /// <param name="name">Player's name</param>
-        /// <param name="score">Player's score</param>
+        /// <param name="name">Player's name.</param>
+        /// <param name="score">Player's score.</param>
         public Player(string name, int score)
         {
             this.Name = name;
@@ -34,7 +34,7 @@ namespace Minesweeper.Common
         }
 
         /// <summary>
-        /// Gets the name of the player
+        /// Gets the name of the player.
         /// </summary>
         public string Name
         {
@@ -55,7 +55,7 @@ namespace Minesweeper.Common
         }
 
         /// <summary>
-        /// Gets the score of the player
+        /// Gets or sets the score of the player.
         /// </summary>
         public int Score
         {
@@ -76,12 +76,12 @@ namespace Minesweeper.Common
         }
 
         /// <summary>
-        /// Compares two instances of the class <see cref="Player" /> by their scores
+        /// Compares two instances of the class <see cref="Player" /> by their scores.
         /// </summary>
-        /// <param name="obj">The other player</param>
+        /// <param name="obj">The other player.</param>
         /// <returns>
         /// -1 if this player's scores are bigger than the other player's score
-        /// 1 if this player's scores are smaller than the other player's score
+        /// 1 if this player's scores are smaller than the other player's score.
         /// </returns>
         public int CompareTo(object obj)
         {
@@ -94,11 +94,11 @@ namespace Minesweeper.Common
         }
 
         /// <summary>
-        /// Converts an instance of the class <see cref="Player" /> into a string
+        /// Converts an instance of the class <see cref="Player" /> into a string.
         /// </summary>
         /// <returns>
         /// A string containing player's name and player's score. Example:
-        /// Ivan --> 100
+        /// Ivan --> 100.
         /// </returns>
         public override string ToString()
         {
