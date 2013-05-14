@@ -75,7 +75,7 @@
         /// Processes the score by adding it to the top scores if necessary.
         /// </summary>
         /// <param name="score">The player score.</param>
-        public void ProcessScore(int score, string name)
+        public void ProcessScore(string name, int score)
         {
             if (score < 0)
             {
@@ -84,13 +84,6 @@
 
             if (this.IsHighScore(score))
             {
-                // this.gameRenderer.DisplayMessage("Please enter your name for the top scoreboard: ");
-                // string name = this.inputMethod.GetUserInput();
-                // while (string.IsNullOrEmpty(name))
-                // {
-                //     this.gameRenderer.DisplayError("The name cannot be empty");
-                //     name = this.inputMethod.GetUserInput();
-                // }
                 Player player = new Player(name, score);
                 this.AddTopScore(player);
             }

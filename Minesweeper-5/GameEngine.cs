@@ -156,7 +156,7 @@ namespace Minesweeper
             }
 
             int score = this.board.CountOpenedFields();
-            this.scores.ProcessScore(score, playerName);
+            this.scores.ProcessScore(playerName, score);
             string topScores = this.scores.DisplayTopScores();
             this.gameRenderer.DisplayMessage(topScores);
         }
