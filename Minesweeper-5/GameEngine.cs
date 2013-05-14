@@ -82,6 +82,7 @@ namespace Minesweeper
                             else if (boardStatus == BoardStatus.FieldAlreadyOpened)
                             {
                                 this.gameRenderer.DisplayMessage("That field has already been opened!");
+                                command = "coordinates";
                             }
                             else if (boardStatus == BoardStatus.AllFieldsAreOpened)
                             {

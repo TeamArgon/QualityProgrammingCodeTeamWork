@@ -23,7 +23,7 @@ moved the entry point of the program from the GameEngine class to the Minesweepe
 extracted duplicating code in method called EndGame
 added check if the player entered a blank name
 added unit tests for the console input method
-added documentation for most methods
+added documentation for most methods in GameEngine, HighScores, ConsoleRenderer and ConsoleInputMethod classes
 extracted scores in a new class called HighScores
 
 TODOs: 
@@ -31,4 +31,3 @@ TODOs:
 - comments + documentation
 - unit tests
 - add assertions
-- extract HighScores in a separate class

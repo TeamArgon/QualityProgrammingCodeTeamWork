@@ -1,5 +1,6 @@
 ﻿namespace Minesweeper.Common
 {
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
@@ -76,6 +77,11 @@
         /// <param name="score">The player score.</param>
         public void ProcessScore(int score, string name)
         {
+            if (score < 0)
+            {
+                throw new ArgumentException("The player score cannot be negative");
+            }
+
             if (this.IsHighScore(score))
             {
                 // this.gameRenderer.DisplayMessage("Please enter your name for the top scoreboard: ");
