@@ -6,7 +6,7 @@
 namespace Minesweeper.Common
 {
     using System;
-    
+
     /// <summary>
     /// Represents one field of the game board.
     /// </summary>
@@ -37,7 +37,15 @@ namespace Minesweeper.Common
         public int Value
         {
             get { return this.value; }
-            set { this.value = value; }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("The number of adjacent mines cannot be less than 0.");
+                }
+
+                this.value = value;
+            }
         }
 
         /// <summary>
