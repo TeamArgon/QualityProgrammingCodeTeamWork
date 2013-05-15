@@ -458,7 +458,7 @@
         }
 
         [TestMethod]
-        public void TestOpenFieldWhenMine1()
+        public void TestOpenFieldWhenMine()
         {
             Board board = new Board(1, 1, 1);
 
@@ -472,23 +472,87 @@
         }
 
         [TestMethod]
-        public void TestOpenFieldWhenOpened2()
+        public void TestOpenFieldWhenOpened()
         {
-            int rows = 5;
-            int columns = 10;
+            int rows = 2;
+            int columns = 2;
 
             Field[,] fixedFields = new Field[rows, columns];
 
             fixedFields[0, 0] = new Field();
             fixedFields[0, 0].Status = FieldStatus.Opened;
 
-            Board board = new Board(rows, columns, 10);
+            Board board = new Board(rows, columns, 1);
 
             Type type = typeof(Board);
             var fieldValue = type.GetField("fields", BindingFlags.Instance | BindingFlags.NonPublic);
             fieldValue.SetValue(board, fixedFields);
 
             BoardStatus expected = BoardStatus.FieldAlreadyOpened;
+            BoardStatus actual = board.OpenField(0, 0);
+
+            Assert.AreEqual(
+               expected,
+               actual,
+               string.Format("The BoardStatus is {0}, but must be {1}!", actual, expected));
+        }
+
+        [TestMethod]
+        public void TestOpenFieldWhenClosed()
+        {
+            int rows = 2;
+            int columns = 2;
+
+            Field[,] fixedFields = new Field[rows, columns];
+
+            fixedFields[0, 0] = new Field();
+            fixedFields[0, 0].Status = FieldStatus.Closed;
+            fixedFields[0, 1] = new Field();
+            fixedFields[0, 1].Status = FieldStatus.IsAMine;
+            fixedFields[1, 0] = new Field();
+            fixedFields[1, 0].Status = FieldStatus.Closed;
+            fixedFields[1, 1] = new Field();
+            fixedFields[1, 1].Status = FieldStatus.Opened;
+
+            Board board = new Board(rows, columns, 1);
+
+            Type type = typeof(Board);
+            var fieldValue = type.GetField("fields", BindingFlags.Instance | BindingFlags.NonPublic);
+            fieldValue.SetValue(board, fixedFields);
+
+            BoardStatus expected = BoardStatus.FieldSuccessfullyOpened;
+            BoardStatus actual = board.OpenField(0, 0);
+
+            Assert.AreEqual(
+               expected,
+               actual,
+               string.Format("The BoardStatus is {0}, but must be {1}!", actual, expected));
+        }
+
+        [TestMethod]
+        public void TestOpenFieldWhenOpenLastClosed()
+        {
+            int rows = 2;
+            int columns = 2;
+
+            Field[,] fixedFields = new Field[rows, columns];
+
+            fixedFields[0, 0] = new Field();
+            fixedFields[0, 0].Status = FieldStatus.Closed;
+            fixedFields[0, 1] = new Field();
+            fixedFields[0, 1].Status = FieldStatus.IsAMine;
+            fixedFields[1, 0] = new Field();
+            fixedFields[1, 0].Status = FieldStatus.Opened;
+            fixedFields[1, 1] = new Field();
+            fixedFields[1, 1].Status = FieldStatus.Opened;
+
+            Board board = new Board(rows, columns, 1);
+
+            Type type = typeof(Board);
+            var fieldValue = type.GetField("fields", BindingFlags.Instance | BindingFlags.NonPublic);
+            fieldValue.SetValue(board, fixedFields);
+
+            BoardStatus expected = BoardStatus.AllFieldsAreOpened;
             BoardStatus actual = board.OpenField(0, 0);
 
             Assert.AreEqual(
