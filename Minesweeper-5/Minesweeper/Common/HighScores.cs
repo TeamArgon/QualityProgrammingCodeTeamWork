@@ -52,7 +52,11 @@
         /// <param name="player">The player that achieved the score.</param>
         public void AddTopScore(Player player)
         {
-            Debug.Assert(player != null, "The player cannot be null!");
+            if (player == null)
+            {
+                throw new ArgumentNullException("The player cannot be null");
+            }
+
             if (this.topPlayers.Capacity > this.topPlayers.Count)
             {
                 this.topPlayers.Add(player);

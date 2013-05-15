@@ -34,7 +34,7 @@
         public void TestCmdExecutorInvalidInput()
         {
             DefaultGameCommandExecutor cmdExecutor = new DefaultGameCommandExecutor(mockRenderer, mockInputMethod, new HighScores(10));
-            cmdExecutor.InvalidInput();
+            cmdExecutor.DisplayErrorInvalidInput();
             string errorMessage = mockRenderer.GetError();
             string expectedErrorMessage = "Invalid input!";
             Assert.AreEqual(expectedErrorMessage, errorMessage, "The message when the input is invalid is incorrect!");

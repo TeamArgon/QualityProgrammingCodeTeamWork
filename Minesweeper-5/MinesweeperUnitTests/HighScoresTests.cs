@@ -82,6 +82,14 @@
             higScoresList.ProcessScore("mimi", -15);            
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestAddScoreNullValue()
+        {
+            HighScores higScoresList = new HighScores(2);
+            higScoresList.AddTopScore(null);
+        }
+
         [TestMethod]       
         public void TestProcessScore()
         {
