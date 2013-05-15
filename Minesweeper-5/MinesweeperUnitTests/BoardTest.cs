@@ -264,17 +264,58 @@
             int columns = 10;
 
             Field[,] fixedFields = new Field[rows, columns];
-            int counter = 1;
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < columns; j++)
                 {
                     fixedFields[i, j] = new Field();
-                    fixedFields[i, j].Status = FieldStatus.Opened;
-                    fixedFields[i, j].Value = counter;
+                }
+            }
+            fixedFields[0, 0].Status = FieldStatus.IsAMine;
+            fixedFields[4, 9].Status = FieldStatus.IsAMine;
+
+            Board board = new Board(rows, columns, 10);
+
+            Type type = typeof(Board);
+            var fieldValue = type.GetField("fields", BindingFlags.Instance | BindingFlags.NonPublic);
+            fieldValue.SetValue(board, fixedFields);
+
+            StringBuilder str = new StringBuilder();
+            str.Append("    0 1 2 3 4 5 6 7 8 9 \n");
+            str.Append("   _____________________\n");
+            str.Append("0 | * 1 0 0 0 0 0 0 0 0 |\n");
+            str.Append("1 | 1 1 0 0 0 0 0 0 0 0 |\n");
+            str.Append("2 | 0 0 0 0 0 0 0 0 0 0 |\n");
+            str.Append("3 | 0 0 0 0 0 0 0 0 1 1 |\n");
+            str.Append("4 | 0 0 0 0 0 0 0 0 1 * |\n");
+            str.Append("   _____________________\n");
+
+            string expected = str.ToString();
+            string actual = board.ToStringAllFieldsRevealed();
+
+            Assert.AreEqual(
+                expected,
+                actual,
+                string.Format("The board string is {0}, but must be {1}!", actual, expected));
+        }
+
+        [TestMethod]
+        public void TestToStringAllFieldsRevealed4()
+        {
+            int rows = 5;
+            int columns = 10;
+
+            Field[,] fixedFields = new Field[rows, columns];
+            int counter = 0;
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    fixedFields[i, j] = new Field();
                     counter++;
                     if (counter == 9)
                     {
+                        fixedFields[i, j].Status = FieldStatus.IsAMine;
                         counter = 1;
                     }
                 }
@@ -289,11 +330,51 @@
             StringBuilder str = new StringBuilder();
             str.Append("    0 1 2 3 4 5 6 7 8 9 \n");
             str.Append("   _____________________\n");
-            str.Append("0 | 1 2 3 4 5 6 7 8 1 2 |\n");
-            str.Append("1 | 3 4 5 6 7 8 1 2 3 4 |\n");
-            str.Append("2 | 5 6 7 8 1 2 3 4 5 6 |\n");
-            str.Append("3 | 7 8 1 2 3 4 5 6 7 8 |\n");
-            str.Append("4 | 1 2 3 4 5 6 7 8 1 2 |\n");
+            str.Append("0 | 0 0 0 0 0 1 1 2 * 1 |\n");
+            str.Append("1 | 0 0 0 1 1 2 * 2 1 1 |\n");
+            str.Append("2 | 0 1 1 2 * 2 1 1 0 0 |\n");
+            str.Append("3 | 1 2 * 2 1 1 0 1 1 1 |\n");
+            str.Append("4 | * 2 1 1 0 0 0 1 * 1 |\n");
+            str.Append("   _____________________\n");
+
+            string expected = str.ToString();
+            string actual = board.ToStringAllFieldsRevealed();
+
+            Assert.AreEqual(
+                expected,
+                actual,
+                string.Format("The board string is {0}, but must be {1}!", actual, expected));
+        }
+
+        [TestMethod]
+        public void TestToStringAllFieldsRevealed5()
+        {
+            int rows = 5;
+            int columns = 10;
+
+            Field[,] fixedFields = new Field[rows, columns];
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    fixedFields[i, j] = new Field();
+                }
+            }
+
+            Board board = new Board(rows, columns, 10);
+
+            Type type = typeof(Board);
+            var fieldValue = type.GetField("fields", BindingFlags.Instance | BindingFlags.NonPublic);
+            fieldValue.SetValue(board, fixedFields);
+
+            StringBuilder str = new StringBuilder();
+            str.Append("    0 1 2 3 4 5 6 7 8 9 \n");
+            str.Append("   _____________________\n");
+            str.Append("0 | 0 0 0 0 0 0 0 0 0 0 |\n");
+            str.Append("1 | 0 0 0 0 0 0 0 0 0 0 |\n");
+            str.Append("2 | 0 0 0 0 0 0 0 0 0 0 |\n");
+            str.Append("3 | 0 0 0 0 0 0 0 0 0 0 |\n");
+            str.Append("4 | 0 0 0 0 0 0 0 0 0 0 |\n");
             str.Append("   _____________________\n");
 
             string expected = str.ToString();
@@ -314,12 +395,106 @@
         }
 
         [TestMethod]
-        public void TestOpenFieldWhenMine()
+        public void TestCountOpenedFields1()
+        {
+            int rows = 5;
+            int columns = 10;
+
+            Field[,] fixedFields = new Field[rows, columns];
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    fixedFields[i, j] = new Field();
+                    fixedFields[i, j].Status = FieldStatus.Opened;
+                }
+            }
+
+            Board board = new Board(rows, columns, 10);
+
+            Type type = typeof(Board);
+            var fieldValue = type.GetField("fields", BindingFlags.Instance | BindingFlags.NonPublic);
+            fieldValue.SetValue(board, fixedFields);
+
+            int expected = 50;
+            int actual = board.CountOpenedFields();
+
+            Assert.AreEqual(
+                expected,
+                actual,
+                string.Format("The board opened fields are {0}, but must be {1}!", actual, expected));
+        }
+
+        [TestMethod]
+        public void TestCountOpenedFields2()
+        {
+            int rows = 5;
+            int columns = 10;
+
+            Field[,] fixedFields = new Field[rows, columns];
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    fixedFields[i, j] = new Field();
+                }
+            }
+            
+            fixedFields[0, 0].Status = FieldStatus.Opened;
+
+            Board board = new Board(rows, columns, 10);
+
+            Type type = typeof(Board);
+            var fieldValue = type.GetField("fields", BindingFlags.Instance | BindingFlags.NonPublic);
+            fieldValue.SetValue(board, fixedFields);
+
+            int expected = 1;
+            int actual = board.CountOpenedFields();
+
+            Assert.AreEqual(
+                expected,
+                actual,
+                string.Format("The board opened fields are {0}, but must be {1}!", actual, expected));
+        }
+
+        [TestMethod]
+        public void TestOpenFieldWhenMine1()
         {
             Board board = new Board(1, 1, 1);
-            board.OpenField(0, 0);
-            int actual = board.CountOpenedFields();
-            Assert.AreEqual(0, actual, "Wrong count of opened fields!");
+
+            BoardStatus expected = BoardStatus.SteppedOnAMine;
+            BoardStatus actual = board.OpenField(0, 0);
+
+            Assert.AreEqual(
+               expected,
+               actual,
+               string.Format("The BoardStatus is {0}, but must be {1}!", actual, expected));
+        }
+
+        [TestMethod]
+        public void TestOpenFieldWhenOpened2()
+        {
+            int rows = 5;
+            int columns = 10;
+
+            Field[,] fixedFields = new Field[rows, columns];
+
+            fixedFields[0, 0] = new Field();
+            fixedFields[0, 0].Status = FieldStatus.Opened;
+
+            Board board = new Board(rows, columns, 10);
+
+            Type type = typeof(Board);
+            var fieldValue = type.GetField("fields", BindingFlags.Instance | BindingFlags.NonPublic);
+            fieldValue.SetValue(board, fixedFields);
+
+            BoardStatus expected = BoardStatus.FieldAlreadyOpened;
+            BoardStatus actual = board.OpenField(0, 0);
+
+            Assert.AreEqual(
+               expected,
+               actual,
+               string.Format("The BoardStatus is {0}, but must be {1}!", actual, expected));
         }
     }
 }
