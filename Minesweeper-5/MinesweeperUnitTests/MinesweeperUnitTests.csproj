@@ -61,7 +61,7 @@
     <Compile Include="FieldTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Minesweeper-5\Minesweeper.csproj">
+    <ProjectReference Include="..\Minesweeper\Minesweeper.csproj">
       <Project>{2b23acdb-7cf2-4eac-bb80-b6dd3b90bca4}</Project>
       <Name>Minesweeper</Name>
     </ProjectReference>

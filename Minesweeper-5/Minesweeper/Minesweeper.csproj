@@ -60,10 +60,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandExecutors\DefaultGameCommandExecutor.cs" />
     <Compile Include="Common\Board.cs" />
     <Compile Include="Common\BoardStatus.cs" />
     <Compile Include="Common\FieldStatus.cs" />
     <Compile Include="Common\HighScores.cs" />
+    <Compile Include="CommandExecutors\IGameCommandExecutor.cs" />
     <Compile Include="InputMethods\ConsoleInputMethod.cs" />
     <Compile Include="MinesweeperGame.cs" />
     <Compile Include="Renderers\ConsoleRenderer.cs" />

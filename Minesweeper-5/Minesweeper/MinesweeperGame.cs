@@ -2,6 +2,7 @@
 {
     using Minesweeper.InputMethods;
     using Minesweeper.Renderers;
+    using Minesweeper.CommandExecutors;
 
     /// <summary>
     /// A class with the entry point of the program.
