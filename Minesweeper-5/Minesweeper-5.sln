@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minesweeper", "Minesweeper.csproj", "{2B23ACDB-7CF2-4EAC-BB80-B6DD3B90BCA4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minesweeper", "Minesweeper\Minesweeper.csproj", "{2B23ACDB-7CF2-4EAC-BB80-B6DD3B90BCA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinesweeperUnitTests", "..\MinesweeperUnitTests\MinesweeperUnitTests.csproj", "{7650CC89-BEE1-4C7F-8F46-E4E2AE1F0ED5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinesweeperUnitTests", "MinesweeperUnitTests\MinesweeperUnitTests.csproj", "{7650CC89-BEE1-4C7F-8F46-E4E2AE1F0ED5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
