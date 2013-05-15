@@ -87,7 +87,7 @@
                         this.ExitGame();
                         return;
                     default:
-                        this.InvalidInput();
+                        this.DisplayErrorInvalidInput();
                         break;
                 }
 
@@ -105,8 +105,6 @@
         /// <param name="command">The entered command.</param>
         public void ProcessUserInput(ref int chosenRow, ref int chosenColumn, ref string command)
         {
-            Debug.Assert(chosenRow >= 0, "The row cannot be negative!");
-            Debug.Assert(chosenColumn >= 0, "The column cannot be negative!");
             this.gameRenderer.DisplayMessage("Enter row and column: ");
             string playerInput = this.inputMethod.GetUserInput();
             if (int.TryParse(playerInput, out chosenRow))
@@ -132,16 +130,14 @@
         /// </summary>
         public void ExitGame()
         {
-            Debug.Assert(this.gameRenderer != null, "The game renderer cannot be null!");
             this.gameRenderer.DisplayMessage("Good bye!");
         }
 
         /// <summary>
         /// Displays and error, stating the player has entered invalid input.
         /// </summary>
-        public void InvalidInput()
+        public void DisplayErrorInvalidInput()
         {
-            Debug.Assert(this.gameRenderer != null, "The game renderer cannot be null!");
             this.gameRenderer.DisplayError("Invalid input!");
         }
 
@@ -152,8 +148,6 @@
         /// <param name="chosenColumn">The chosen column.</param>
         public void CheckCoordinates(int chosenRow, int chosenColumn)
         {
-            Debug.Assert(chosenRow >= 0, "The row cannot be negative!");
-            Debug.Assert(chosenColumn >= 0, "The column cannot be negative!");
             try
             {
                 BoardStatus boardStatus = this.board.OpenField(chosenRow, chosenColumn);
@@ -190,8 +184,6 @@
         /// </summary>
         public void DisplayTopScores()
         {
-            Debug.Assert(this.gameRenderer != null, "The game renderer cannot be null!");
-            Debug.Assert(this.scores != null, "The scores cannot be null!");
             this.gameRenderer.DisplayMessage("Scoreboard");
             string topScore = this.scores.GetTopScores();
             this.gameRenderer.DisplayMessage(topScore);
@@ -202,8 +194,6 @@
         /// </summary>
         public void RestartGame()
         {
-            Debug.Assert(this.gameRenderer != null, "The game renderer cannot be null!");
-
             this.GenerateNewBoard(MaxRows, MaxColumns, MaxMines);
             this.gameRenderer.DisplayMessage(
                 "Welcome to the game “Minesweeper”. " +
@@ -231,9 +221,6 @@
         /// <param name="message">The message.</param>
         public void EndGame(string message)
         {
-            Debug.Assert(this.gameRenderer != null, "The game renderer cannot be null!");
-            Debug.Assert(this.inputMethod != null, "The input method cannot be null!");
-            Debug.Assert(this.scores != null, "The scores cannot be null!");
             this.gameRenderer.DisplayMessage(this.board.ToStringAllFieldsRevealed());
             this.gameRenderer.DisplayMessage(message);
 

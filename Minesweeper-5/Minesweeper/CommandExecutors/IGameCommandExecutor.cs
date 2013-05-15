@@ -23,7 +23,7 @@
         /// <summary>
         /// Displays an error message if the user has entered invalid input.
         /// </summary>
-        void InvalidInput();
+        void DisplayErrorInvalidInput();
 
         /// <summary>
         /// Checks if there is a mine on the specified coordinates.
