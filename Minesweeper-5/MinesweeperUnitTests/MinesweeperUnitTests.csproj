@@ -53,12 +53,15 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BoardTest.cs" />
+    <Compile Include="MockClasses\MockInputMethod.cs" />
+    <Compile Include="MockClasses\MockRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ConsoleInputMethodTests.cs" />
     <Compile Include="ConsoleRendererTests.cs" />
     <Compile Include="PlayerTests.cs" />
     <Compile Include="HighScoresTests.cs" />
     <Compile Include="FieldTests.cs" />
+    <Compile Include="CommandExecutorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Minesweeper\Minesweeper.csproj">

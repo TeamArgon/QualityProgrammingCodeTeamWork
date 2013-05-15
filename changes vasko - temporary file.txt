@@ -26,7 +26,9 @@ added unit tests for the console input method
 added documentation for most methods in GameEngine, HighScores, ConsoleRenderer and ConsoleInputMethod classes
 extracted scores in a new class called HighScores
 Added exception for if the field value is less than 0
+created a new class that executes the appropriate commands
 extracted methods for every player command - "restart", "top", "exit", "coordinates"
+
 
 TODOs: 
 - further refactor the StartGame() method
