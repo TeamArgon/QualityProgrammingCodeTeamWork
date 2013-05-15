@@ -38,7 +38,7 @@
         private readonly IInputMethod inputMethod;
 
         /// <summary>
-        /// The highscores for this game.
+        /// The high scores for this game.
         /// </summary>
         private readonly HighScores scores;
 

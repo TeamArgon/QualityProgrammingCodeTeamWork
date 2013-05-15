@@ -6,10 +6,20 @@
     using System.Linq;
     using System.Text;
 
+    /// <summary>
+    /// A high scores class, that scores information about the top scores.
+    /// </summary>
     public class HighScores
     {
+        /// <summary>
+        /// A list, containing the top players.
+        /// </summary>
         private readonly List<Player> topPlayers;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HighScores" /> class.
+        /// </summary>
+        /// <param name="maxTopPlayers">The maximum amount of top players.</param>
         public HighScores(int maxTopPlayers)
         {
             this.topPlayers = new List<Player>();
@@ -59,6 +69,7 @@
         /// <summary>
         /// Displays the top scores.
         /// </summary>
+        /// <returns>The top scores as a string.</returns>
         public string GetTopScores()
         {
             StringBuilder sb = new StringBuilder();
@@ -73,6 +84,7 @@
         /// <summary>
         /// Processes the score by adding it to the top scores if necessary.
         /// </summary>
+        /// <param name="name">The player name.</param>
         /// <param name="score">The player score.</param>
         public void ProcessScore(string name, int score)
         {

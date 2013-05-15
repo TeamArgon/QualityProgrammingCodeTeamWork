@@ -1,19 +1,15 @@
 namespace Minesweeper
 {
-    using System;
-    using System.Linq;
-    using System.Diagnostics;
+    using Minesweeper.CommandExecutors;
     using Minesweeper.Common;
     using Minesweeper.InputMethods;
     using Minesweeper.Renderers;
-    using Minesweeper.CommandExecutors;
 
     /// <summary>
     /// The game engine class, used to start a new game.
     /// </summary>
     public class GameEngine
     {
-
         private const int MaxTopPlayers = 5;
         private readonly IRenderer gameRenderer;
         private readonly IInputMethod inputMethod;
@@ -38,7 +34,7 @@ namespace Minesweeper
         /// </summary>
         public void StartGame()
         {
-            cmdExecutor.Start();
+            this.cmdExecutor.Start();
         }
     }
 }

@@ -36,6 +36,7 @@ namespace Minesweeper.Common
         /// <summary>
         /// Gets the name of the player.
         /// </summary>
+        /// <value>The player name.</value>
         public string Name
         {
             get
@@ -57,6 +58,7 @@ namespace Minesweeper.Common
         /// <summary>
         /// Gets or sets the score of the player.
         /// </summary>
+        /// <value>The player score.</value>
         public int Score
         {
             get
@@ -80,8 +82,9 @@ namespace Minesweeper.Common
         /// </summary>
         /// <param name="obj">The other player.</param>
         /// <returns>
-        /// -1 if this player's scores are bigger than the other player's score
-        /// 1 if this player's scores are smaller than the other player's score.
+        /// Returns -1 if this player's scores are bigger than the other player's score,
+        /// 1 if this player's scores are smaller than the other player's score or 0 if the
+        /// scores are equal.
         /// </returns>
         public int CompareTo(object obj)
         {

@@ -34,6 +34,7 @@ namespace Minesweeper.Common
         /// <summary>
         /// Gets or sets the sum of all mines positioned in the surrounding fields.
         /// </summary>
+        /// <value>The amount of mines in the vicinity.</value>
         public int Value
         {
             get
@@ -55,6 +56,7 @@ namespace Minesweeper.Common
         /// <summary>
         /// Gets or sets the status of the field.
         /// </summary>
+        /// <value>The status of the field.</value>
         public FieldStatus Status
         {
             get { return this.status; }
