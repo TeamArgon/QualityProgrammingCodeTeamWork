@@ -5,6 +5,7 @@ namespace Minesweeper
     using Minesweeper.Common;
     using Minesweeper.InputMethods;
     using Minesweeper.Renderers;
+    using System.Diagnostics;
 
     /// <summary>
     /// The game engine class, used to start a new game.
@@ -69,6 +70,10 @@ namespace Minesweeper
   
         private void ProcessUserInput(ref int chosenRow, ref int chosenColumn, ref string command)
         {
+            Debug.Assert(chosenRow != null, "The row cannot be null!");
+            Debug.Assert(chosenColumn != null, "The column cannot be null!");
+            Debug.Assert(chosenRow >= 0, "The row cannot be negative!");
+            Debug.Assert(chosenColumn >= 0, "The column cannot be negative!");
             this.gameRenderer.DisplayMessage("Enter row and column: ");
             string playerInput = this.inputMethod.GetUserInput();
             if (int.TryParse(playerInput, out chosenRow))
@@ -91,16 +96,22 @@ namespace Minesweeper
 
         private void ExitGame()
         {
+            Debug.Assert(this.gameRenderer != null, "The game renderer cannot be null!");
             this.gameRenderer.DisplayMessage("Good bye!");
         }
 
         private void InvalidInput()
         {
+            Debug.Assert(this.gameRenderer != null, "The game renderer cannot be null!");
             this.gameRenderer.DisplayError("Invalid input!");
         }
 
         private void CheckCoordinates(int chosenRow, int chosenColumn)
         {
+            Debug.Assert(chosenRow != null, "The row cannot be null!");
+            Debug.Assert(chosenColumn != null, "The column cannot be null!");
+            Debug.Assert(chosenRow >= 0, "The row cannot be negative!");
+            Debug.Assert(chosenColumn >= 0, "The column cannot be negative!"); 
             try
             {
                 BoardStatus boardStatus = this.board.OpenField(chosenRow, chosenColumn);
@@ -133,6 +144,8 @@ namespace Minesweeper
 
         private void DisplayTopScores()
         {
+            Debug.Assert(this.gameRenderer != null, "The game renderer cannot be null!");
+            Debug.Assert(this.scores != null, "The scores cannot be null!");
             this.gameRenderer.DisplayMessage("Scoreboard");
             string topScore = this.scores.GetTopScores();
             this.gameRenderer.DisplayMessage(topScore);
@@ -140,6 +153,7 @@ namespace Minesweeper
 
         private void RestartGame()
         {
+            Debug.Assert(this.gameRenderer != null, "The game renderer cannot be null!");
             this.GenerateNewBoard();
             this.gameRenderer.DisplayMessage(
                 "Welcome to the game “Minesweeper”. " +
@@ -155,6 +169,7 @@ namespace Minesweeper
         /// </summary>
         private void GenerateNewBoard()
         {
+            Debug.Assert(this.board != null, "The game board cannot be null!");
             this.board = new Board(MaxRows, MaxColumns, MaxMines);
         }
 
@@ -164,6 +179,9 @@ namespace Minesweeper
         /// <param name="message">The message.</param>
         private void EndGame(string message)
         {
+            Debug.Assert(this.gameRenderer != null, "The game renderer cannot be null!");
+            Debug.Assert(this.inputMethod != null, "The input method cannot be null!");
+            Debug.Assert(this.scores != null, "The scores cannot be null!");
             this.gameRenderer.DisplayMessage(this.board.ToStringAllFieldsRevealed());
             this.gameRenderer.DisplayMessage(message);
 
