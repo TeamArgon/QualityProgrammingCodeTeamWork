@@ -36,10 +36,14 @@ namespace Minesweeper.Common
         /// </summary>
         public int Value
         {
-            get { return this.value; }
+            get
+            {
+                return this.value;
+            }
+
             set
             {
-                if (value < 0)
+                if (value < 0 || value > 8)
                 {
                     throw new ArgumentException("The number of adjacent mines cannot be less than 0.");
                 }

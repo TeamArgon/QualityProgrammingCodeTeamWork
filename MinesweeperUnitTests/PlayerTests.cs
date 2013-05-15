@@ -46,5 +46,19 @@ namespace MinesweeperUnitTests
             string actual = player.ToString();
             Assert.AreEqual(expected,actual,"ToString not working correctly");
         }
+
+        [TestMethod]
+        public void PlayerTestGetName()
+        {
+            Player player = new Player("gosho", 14);
+            Assert.AreEqual("gosho", player.Name, "The player class is not being instantiated as expected!");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void PlayerTestNullName()
+        {
+            Player player = new Player(null, 14);
+        }
     }
 }

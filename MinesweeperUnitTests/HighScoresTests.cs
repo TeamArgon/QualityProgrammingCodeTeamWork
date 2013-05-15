@@ -46,8 +46,8 @@ namespace MinesweeperUnitTests
             higScoresList.AddTopScore(new Player("e", 17));
             higScoresList.AddTopScore(new Player("e", 0));
             StringBuilder result = new StringBuilder();            
-            result.Append("1. e --> 17\r\n");
-            result.Append("2. e --> 0\r\n");            
+            result.AppendLine("1. e --> 17");
+            result.AppendLine("2. e --> 0");            
             string expected = result.ToString();
             string actual = higScoresList.GetTopScores();
 

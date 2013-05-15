@@ -9,21 +9,21 @@
     public class BoardTest
     {
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException), "The field cannot have a negative side!")]
         public void TestBoardConstructor1_ThrowsExcepsion()
         {
             Board board = new Board(-1, 10, 10);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException), "The field cannot have a side of 0!")]
         public void TestBoardConstructor2_ThrowsExcepsion()
         {
             Board board = new Board(10, 0, 3);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException), "The number of mines cannot be larger than the number of fields!")]
         public void TestBoardConstructor3_ThrowsExcepsion()
         {
             Board board = new Board(10, 5, 51);
