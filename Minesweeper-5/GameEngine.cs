@@ -1,8 +1,6 @@
 namespace Minesweeper
 {
     using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
     using Minesweeper.Common;
     using Minesweeper.InputMethods;
@@ -54,38 +52,40 @@ namespace Minesweeper
                     case "top":
                         this.DisplayTopScores();
                         break;
+                    case "coordinates":
+                        this.CheckCoordinates(chosenRow, chosenColumn);
+                        break;
                     case "exit":
                         this.ExitGame();
                         return;
-                    case "coordinates":
-                        command = CheckCoordinates(chosenRow, chosenColumn);
-                        break;
                     default:
-                        InvalidInput();
+                        this.InvalidInput();
                         break;
                 }
 
-                this.gameRenderer.DisplayMessage("Enter row and column: ");
-
-                // TODO : extract this in a new method
-                string playerInput = this.inputMethod.GetUserInput();
-                if (int.TryParse(playerInput, out chosenRow))
+                ProcessUserInput(ref chosenRow, ref chosenColumn, ref command);
+            }
+        }
+  
+        private void ProcessUserInput(ref int chosenRow, ref int chosenColumn, ref string command)
+        {
+            this.gameRenderer.DisplayMessage("Enter row and column: ");
+            string playerInput = this.inputMethod.GetUserInput();
+            if (int.TryParse(playerInput, out chosenRow))
+            {
+                playerInput = this.inputMethod.GetUserInput();
+                if (int.TryParse(playerInput, out chosenColumn))
                 {
                     command = "coordinates";
-                    playerInput = this.inputMethod.GetUserInput();
-                    if (int.TryParse(playerInput, out chosenColumn))
-                    {
-                        command = "coordinates";
-                    }
-                    else
-                    {
-                        command = playerInput;
-                    }
                 }
                 else
                 {
                     command = playerInput;
                 }
+            }
+            else
+            {
+                command = playerInput;
             }
         }
 
@@ -93,36 +93,32 @@ namespace Minesweeper
         {
             this.gameRenderer.DisplayMessage("Good bye!");
         }
-  
+
         private void InvalidInput()
         {
             this.gameRenderer.DisplayError("Invalid input!");
         }
-  
-        private string CheckCoordinates(int chosenRow, int chosenColumn)
+
+        private void CheckCoordinates(int chosenRow, int chosenColumn)
         {
-            string command = "coordinates";
             try
             {
                 BoardStatus boardStatus = this.board.OpenField(chosenRow, chosenColumn);
                 if (boardStatus == BoardStatus.SteppedOnAMine)
                 {
                     int score = this.board.CountOpenedFields();
-                    this.EndGame(string.Format(
-                                               "Booooom! You were killed by a mine. You revealed" +
-                                               " {0} cells without mines.",
-                        score));
-                    command = "restart";
+                    this.EndGame(string.Format("Booooom! You were killed by a mine. You revealed" +
+                                               " {0} cells without mines.",score));
+                    this.RestartGame();
                 }
                 else if (boardStatus == BoardStatus.FieldAlreadyOpened)
                 {
                     this.gameRenderer.DisplayMessage("That field has already been opened!");
-                    command = "coordinates";
                 }
                 else if (boardStatus == BoardStatus.AllFieldsAreOpened)
                 {
                     this.EndGame("Congratulations! You win!!");
-                    command = "restart";
+                    this.RestartGame();
                 }
                 else
                 {
@@ -133,9 +129,8 @@ namespace Minesweeper
             {
                 this.gameRenderer.DisplayError("The row and column entered must be within the playing field!");
             }
-            return command;
         }
-  
+
         private void DisplayTopScores()
         {
             this.gameRenderer.DisplayMessage("Scoreboard");
