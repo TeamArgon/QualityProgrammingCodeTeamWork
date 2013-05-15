@@ -53,7 +53,7 @@
         {
             string message = "Invalid input!";
             Console.SetOut(stringWriter);
-            renderer.DisplayMessage(message);
+            renderer.DisplayError(message);
             string expected = message;
             string actual = stringWriter.ToString().Trim();
             Assert.AreEqual(expected, actual, "The message was displayed incorrectly!");
@@ -64,7 +64,7 @@
         {
             string message = "The row and column entered must be within the playing field!";
             Console.SetOut(stringWriter);
-            renderer.DisplayMessage(message);
+            renderer.DisplayError(message);
             string expected = message;
             string actual = stringWriter.ToString().Trim();
             Assert.AreEqual(expected, actual, "The message was displayed incorrectly!");
@@ -75,7 +75,7 @@
         {
             string message = string.Empty;
             Console.SetOut(stringWriter);
-            renderer.DisplayMessage(message);
+            renderer.DisplayError(message);
             string expected = message;
             string actual = stringWriter.ToString().Trim();
             Assert.AreEqual(expected, actual, "The message was displayed incorrectly!");
