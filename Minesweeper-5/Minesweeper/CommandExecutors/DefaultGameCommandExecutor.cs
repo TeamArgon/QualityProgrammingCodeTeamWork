@@ -6,24 +6,64 @@
     using Minesweeper.InputMethods;
     using Minesweeper.Renderers;
     
+    /// <summary>
+    /// A game command executor, that processes commands based on the user
+    /// input.
+    /// </summary>
     public class DefaultGameCommandExecutor : IGameCommandExecutor
     {
-        private readonly IRenderer gameRenderer;
-        private readonly IInputMethod inputMethod;
-        private readonly HighScores scores;
-        private Board board;
+        /// <summary>
+        /// The maximum rows in the playing field.
+        /// </summary>
         private const int MaxRows = 5;
+
+        /// <summary>
+        /// The maximum columns in the playing field.
+        /// </summary>
         private const int MaxColumns = 10;
+
+        /// <summary>
+        /// The maximum mines in the playing field.
+        /// </summary>
         private const int MaxMines = 15;
 
+        /// <summary>
+        /// The game renderer that will be used.
+        /// </summary>
+        private readonly IRenderer gameRenderer;
+
+        /// <summary>
+        /// The input method that will be used.
+        /// </summary>
+        private readonly IInputMethod inputMethod;
+
+        /// <summary>
+        /// The highscores for this game.
+        /// </summary>
+        private readonly HighScores scores;
+
+        /// <summary>
+        /// The minefield board.
+        /// </summary>
+        private Board board;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DefaultGameCommandExecutor" /> class.
+        /// </summary>
+        /// <param name="renderer">The game renderer.</param>
+        /// <param name="inputMethod">The input method.</param>
+        /// <param name="scores">The high scores.</param>
         public DefaultGameCommandExecutor(IRenderer renderer, IInputMethod inputMethod, HighScores scores)
         {
             this.scores = scores;
             this.gameRenderer = renderer;
             this.inputMethod = inputMethod;
-            GenerateNewBoard(MaxRows, MaxColumns, MaxMines);
+            this.GenerateNewBoard(MaxRows, MaxColumns, MaxMines);
         }
 
+        /// <summary>
+        /// Starts the command executor.
+        /// </summary>
         public void Start()
         {
             string command = "restart";
@@ -55,10 +95,16 @@
             }
         }
 
+        /// <summary>
+        /// Processes the user input. If the user has entered a row and a column updates
+        /// the chosenRow and chosenField. If the user has entered a command updates the
+        /// command.
+        /// </summary>
+        /// <param name="chosenRow">The entered row.</param>
+        /// <param name="chosenColumn">The entered column.</param>
+        /// <param name="command">The entered command.</param>
         public void ProcessUserInput(ref int chosenRow, ref int chosenColumn, ref string command)
         {
-            Debug.Assert(chosenRow != null, "The row cannot be null!");
-            Debug.Assert(chosenColumn != null, "The column cannot be null!");
             Debug.Assert(chosenRow >= 0, "The row cannot be negative!");
             Debug.Assert(chosenColumn >= 0, "The column cannot be negative!");
             this.gameRenderer.DisplayMessage("Enter row and column: ");
@@ -81,22 +127,31 @@
             }
         }
 
+        /// <summary>
+        /// Exits the game.
+        /// </summary>
         public void ExitGame()
         {
             Debug.Assert(this.gameRenderer != null, "The game renderer cannot be null!");
             this.gameRenderer.DisplayMessage("Good bye!");
         }
 
+        /// <summary>
+        /// Displays and error, stating the player has entered invalid input.
+        /// </summary>
         public void InvalidInput()
         {
             Debug.Assert(this.gameRenderer != null, "The game renderer cannot be null!");
             this.gameRenderer.DisplayError("Invalid input!");
         }
 
+        /// <summary>
+        /// Checks if there is a mine at the specified coordinates.
+        /// </summary>
+        /// <param name="chosenRow">The chosen row.</param>
+        /// <param name="chosenColumn">The chosen column.</param>
         public void CheckCoordinates(int chosenRow, int chosenColumn)
         {
-            Debug.Assert(chosenRow != null, "The row cannot be null!");
-            Debug.Assert(chosenColumn != null, "The column cannot be null!");
             Debug.Assert(chosenRow >= 0, "The row cannot be negative!");
             Debug.Assert(chosenColumn >= 0, "The column cannot be negative!");
             try
@@ -130,6 +185,9 @@
             }
         }
 
+        /// <summary>
+        /// Displays the top scores.
+        /// </summary>
         public void DisplayTopScores()
         {
             Debug.Assert(this.gameRenderer != null, "The game renderer cannot be null!");
@@ -139,6 +197,9 @@
             this.gameRenderer.DisplayMessage(topScore);
         }
 
+        /// <summary>
+        /// Restarts the game.
+        /// </summary>
         public void RestartGame()
         {
             Debug.Assert(this.gameRenderer != null, "The game renderer cannot be null!");
@@ -156,6 +217,9 @@
         /// <summary>
         /// Generates a new board.
         /// </summary>
+        /// <param name="maxRows">The maximum rows of the board.</param>
+        /// <param name="maxColumns">The maximum columns of the board.</param>
+        /// <param name="maxMines">The maximum mines of the board.</param>
         public void GenerateNewBoard(int maxRows, int maxColumns, int maxMines)
         {
             this.board = new Board(maxRows, maxColumns, maxMines);

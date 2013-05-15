@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Minesweeper.Common;
-
-namespace MinesweeperUnitTests
+﻿namespace MinesweeperUnitTests
 {
+    using System;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Minesweeper.Common;
+    
     [TestClass]
     public class FieldTests
     {

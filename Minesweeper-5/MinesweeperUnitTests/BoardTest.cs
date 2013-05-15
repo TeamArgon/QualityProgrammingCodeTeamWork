@@ -12,21 +12,24 @@
         [ExpectedException(typeof(ArgumentOutOfRangeException), "The field cannot have a negative side!")]
         public void TestBoardConstructor1_ThrowsExcepsion()
         {
-            Board board = new Board(-1, 10, 10);
+            Board board;
+            board = new Board(-1, 10, 10);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException), "The field cannot have a side of 0!")]
         public void TestBoardConstructor2_ThrowsExcepsion()
         {
-            Board board = new Board(10, 0, 3);
+            Board board;
+            board = new Board(10, 0, 3);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException), "The number of mines cannot be larger than the number of fields!")]
         public void TestBoardConstructor3_ThrowsExcepsion()
         {
-            Board board = new Board(10, 5, 51);
+            Board board;
+            board = new Board(10, 5, 51);
         }
 
         [TestMethod]
@@ -63,8 +66,8 @@
         public void TestCountOpenedFieldsWhenNoOpened()
         {
             Board board = new Board(2, 3, 1);
-            int actual=board.CountOpenedFields();
-            Assert.AreEqual(0,actual, "Wrong count of opened fields!");
+            int actual = board.CountOpenedFields();
+            Assert.AreEqual(0, actual, "Wrong count of opened fields!");
         }
 
         [TestMethod]
@@ -91,5 +94,4 @@
             Assert.AreEqual(expected, actual, "Wrong count of opened fields!");
         }
     }
-}  
-
+}

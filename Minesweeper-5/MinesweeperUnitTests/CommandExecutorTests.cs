@@ -1,17 +1,17 @@
 ﻿namespace MinesweeperUnitTests
 {
     using System;
+    using System.Text;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using MinesweeperUnitTests.MockClasses;
     using Minesweeper.CommandExecutors;
     using Minesweeper.Common;
-    using System.Text;
+    using MinesweeperUnitTests.MockClasses;
 
     [TestClass]
     public class CommandExecutorTests
     {
-        static MockRenderer mockRenderer;
-        static MockInputMethod mockInputMethod;
+        private static MockRenderer mockRenderer;
+        private static MockInputMethod mockInputMethod;
 
         [TestInitialize]
         public void InitializeMocks()

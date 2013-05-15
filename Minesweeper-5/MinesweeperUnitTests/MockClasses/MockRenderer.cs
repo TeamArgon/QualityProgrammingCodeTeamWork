@@ -1,14 +1,14 @@
 ﻿namespace MinesweeperUnitTests.MockClasses
 {
-    using Minesweeper.Renderers;
-    using Minesweeper.Common;
     using System.Text;
+    using Minesweeper.Common;
+    using Minesweeper.Renderers;
 
     public class MockRenderer : IRenderer
     {
-        readonly StringBuilder mockMessage;
-        readonly StringBuilder mockError;
-        Board mockBoard;
+        private readonly StringBuilder mockMessage;
+        private readonly StringBuilder mockError;
+        private Board mockBoard;
 
         public MockRenderer()
         {

@@ -1,10 +1,10 @@
-﻿using Minesweeper.InputMethods;
-
-namespace MinesweeperUnitTests.MockClasses
+﻿namespace MinesweeperUnitTests.MockClasses
 {
+    using Minesweeper.InputMethods;
+
     public class MockInputMethod : IInputMethod
     {
-        string mockInput;
+        private string mockInput;
 
         public void SetInput(string mockInput)
         {
@@ -13,7 +13,7 @@ namespace MinesweeperUnitTests.MockClasses
 
         public string GetUserInput()
         {
-            return mockInput;
+            return this.mockInput;
         }
     }
 }

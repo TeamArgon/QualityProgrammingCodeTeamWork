@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Minesweeper.Common;
-
-namespace MinesweeperUnitTests
+﻿namespace MinesweeperUnitTests
 {
+    using System;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Minesweeper.Common;
+    
     [TestClass]
     public class PlayerTests
     {
@@ -44,7 +44,7 @@ namespace MinesweeperUnitTests
             Player player = new Player("mimi", 123);
             string expected = "mimi --> 123";
             string actual = player.ToString();
-            Assert.AreEqual(expected,actual,"ToString not working correctly");
+            Assert.AreEqual(expected, actual, "ToString not working correctly");
         }
 
         [TestMethod]

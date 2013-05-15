@@ -1,10 +1,10 @@
-﻿using System;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Minesweeper.Common;
-
-namespace MinesweeperUnitTests
+﻿namespace MinesweeperUnitTests
 {
+    using System;
+    using System.Text;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Minesweeper.Common;
+    
     [TestClass]
     public class HighScoresTests
     {        
