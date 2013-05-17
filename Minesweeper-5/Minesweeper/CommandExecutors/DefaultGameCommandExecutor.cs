@@ -1,7 +1,6 @@
 ﻿namespace Minesweeper.CommandExecutors
 {
     using System;
-    using System.Diagnostics;
     using Minesweeper.Common;
     using Minesweeper.InputMethods;
     using Minesweeper.Renderers;
